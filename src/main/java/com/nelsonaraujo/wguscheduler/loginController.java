@@ -2,21 +2,40 @@ package com.nelsonaraujo.wguscheduler;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 
-public class loginController {
-    @FXML
-    private Label welcomeText;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class loginController implements Initializable {
+    @FXML private TextField usernameTextField;
+    @FXML private PasswordField passwordField;
+    @FXML private Label serverNameLabel;
+    @FXML public Label loginErrorLabel;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        serverNameLabel.setText(DBConnection.SERVER_NAME);
+    }
+
 
     @FXML
     protected void onLoginButtonClick() {
-        System.out.println("Login button clicked");
+        System.out.println("User:" + usernameTextField.getText().trim() + "| Password:" + passwordField.getText().trim());
+        if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()){
+            loginErrorLabel.setText("A Username and password is required");
+        } else {
+            DBConnection.startConnection(usernameTextField.getText().trim(), passwordField.getText().trim());
+        }
+
     }
 
     @FXML
     protected void onCloseButtonClick(){
-        System.out.println("Close button clicked");
+        DBConnection.closeConnection();
         Platform.exit();
     }
 }
