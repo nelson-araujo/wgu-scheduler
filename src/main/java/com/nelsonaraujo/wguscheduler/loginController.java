@@ -1,5 +1,6 @@
 package com.nelsonaraujo.wguscheduler;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -16,5 +17,6 @@ public class loginController {
     @FXML
     protected void onCloseButtonClick(){
         System.out.println("Close button clicked");
+        Platform.exit();
     }
 }
