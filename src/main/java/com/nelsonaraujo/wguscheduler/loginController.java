@@ -24,7 +24,6 @@ public class loginController implements Initializable {
 
     @FXML
     protected void onLoginButtonClick() {
-        System.out.println("User:" + usernameTextField.getText().trim() + "| Password:" + passwordField.getText().trim());
         if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()){
             loginErrorLabel.setText("A Username and password is required");
         } else {

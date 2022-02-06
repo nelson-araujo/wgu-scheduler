@@ -24,7 +24,7 @@ public class DBConnection {
         try{
             Class.forName(MYSQL_JDBC_DRIVER); // Retrieve the driver
             connectionToDb = DriverManager.getConnection(JDBC_URL, username, password);
-            System.out.println("[INFO] Connection established: " + JDBC_URL + "\n");
+            System.out.println("[INFO] Connection established: " + JDBC_URL);
 
         } catch(ClassNotFoundException | SQLException e){
             System.out.print("[ERROR] " + e.getMessage() + "\n");
@@ -41,7 +41,7 @@ public class DBConnection {
     public static void closeConnection(){
         try {
             connectionToDb.close();
-            System.out.println("[INFO] Connection closed: " + JDBC_URL +"\n");
+            System.out.println("[INFO] Connection closed: " + JDBC_URL);
         } catch (SQLException e){
             System.out.println("[ERROR] " + e.getMessage() +"\n");
         } catch (NullPointerException e){
