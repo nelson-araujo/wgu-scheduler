@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Scheduler extends Application {
+public class wguScheduler extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Scheduler.class.getResource("login-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(wguScheduler.class.getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("Scheduler");
         stage.setScene(scene);
