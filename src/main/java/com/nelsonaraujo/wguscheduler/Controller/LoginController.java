@@ -22,7 +22,6 @@ public class LoginController implements Initializable {
         serverNameLabel.setText(DBConnection.SERVER_NAME);
     }
 
-
     @FXML
     protected void onLoginButtonClick() {
         if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()){
@@ -30,7 +29,6 @@ public class LoginController implements Initializable {
         } else {
             DBConnection.startConnection(usernameTextField.getText().trim(), passwordField.getText().trim());
         }
-
     }
 
     @FXML
