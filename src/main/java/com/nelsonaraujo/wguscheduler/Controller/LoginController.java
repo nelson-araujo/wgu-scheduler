@@ -1,5 +1,6 @@
-package com.nelsonaraujo.wguscheduler;
+package com.nelsonaraujo.wguscheduler.Controller;
 
+import com.nelsonaraujo.wguscheduler.Model.DBConnection;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +11,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class loginController implements Initializable {
+public class LoginController implements Initializable {
     @FXML private TextField usernameTextField;
     @FXML private PasswordField passwordField;
     @FXML private Label serverNameLabel;

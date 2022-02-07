@@ -1,4 +1,4 @@
-package com.nelsonaraujo.wguscheduler;
+package com.nelsonaraujo.wguscheduler.Model;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
