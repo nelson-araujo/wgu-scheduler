@@ -1,6 +1,7 @@
 package com.nelsonaraujo.wguscheduler.Controller;
 
 import com.nelsonaraujo.wguscheduler.Model.DBConnection;
+import com.nelsonaraujo.wguscheduler.wguScheduler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -23,11 +25,13 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    protected void onLoginButtonClick() {
+    protected void onLoginButtonClick() throws IOException {
         if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()){
             loginErrorLabel.setText("A Username and password is required");
         } else {
+            // TODO - DB Error handling
             DBConnection.startConnection(usernameTextField.getText().trim(), passwordField.getText().trim());
+            wguScheduler.mainScene(); // Open main scene
         }
     }
 
