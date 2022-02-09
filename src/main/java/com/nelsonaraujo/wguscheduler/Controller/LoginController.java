@@ -2,12 +2,15 @@ package com.nelsonaraujo.wguscheduler.Controller;
 
 import com.nelsonaraujo.wguscheduler.Model.DBConnection;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
+import com.nelsonaraujo.wguscheduler.Model.UserLocale;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,10 +21,13 @@ public class LoginController implements Initializable {
     @FXML private PasswordField passwordField;
     @FXML private Label serverNameLabel;
     @FXML public Label loginErrorLabel;
+    @FXML private ImageView userLocaleImage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        serverNameLabel.setText(DBConnection.SERVER_NAME);
+        serverNameLabel.setText(DBConnection.SERVER_NAME); // Set server name
+        userLocaleImage.setImage(UserLocale.getLocaleFlag());
+            Tooltip.install(userLocaleImage, new Tooltip(UserLocale.getUserLocaleString()));
     }
 
     @FXML

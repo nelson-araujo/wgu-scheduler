@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -30,9 +31,9 @@
           <TextField fx:id="usernameTextField" minWidth="100.0" GridPane.columnIndex="1" />
           <Label minWidth="80.0" text="Password: " GridPane.rowIndex="1" />
           <PasswordField fx:id="passwordField" minWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-         <Label prefHeight="16.0" prefWidth="79.0" text="Server:" GridPane.rowIndex="2" />
-         <Label fx:id="serverNameLabel" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-         <Label fx:id="loginErrorLabel" prefHeight="16.0" prefWidth="264.0" textAlignment="CENTER" textFill="#940000" GridPane.columnSpan="2" GridPane.rowIndex="3">
+         <Label minWidth="80.0" text="Server:" GridPane.rowIndex="2" />
+         <Label fx:id="serverNameLabel" minWidth="100.0" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         <Label fx:id="loginErrorLabel" textAlignment="CENTER" textFill="#940000" GridPane.columnSpan="2" GridPane.rowIndex="3">
             <font>
                <Font size="10.0" />
             </font>
@@ -42,14 +43,22 @@
          <Insets />
       </VBox.margin>
    </GridPane>
+   <HBox alignment="BOTTOM_LEFT">
+      <children>
+         <ImageView fx:id="userLocaleImage" fitHeight="11.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+            <viewport>
+               <Rectangle2D />
+            </viewport>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin></ImageView>
 
-    <ButtonBar>
-      <buttons>
-          <Button defaultButton="true" onAction="#onLoginButtonClick" text="Login" />
-          <Button onAction="#onCloseButtonClick" text="Close" textAlignment="RIGHT" />
-      </buttons>
-      <VBox.margin>
-         <Insets />
-      </VBox.margin>
-    </ButtonBar>
+          <ButtonBar buttonMinWidth="80.0" minWidth="225.0">
+            <buttons>
+                <Button defaultButton="true" onAction="#onLoginButtonClick" text="Login" />
+                <Button onAction="#onCloseButtonClick" text="Close" textAlignment="RIGHT" />
+            </buttons>
+          </ButtonBar>
+      </children>
+   </HBox>
 </VBox>
