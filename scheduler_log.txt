@@ -1,4 +1,0 @@
-date	time	timezone	user	Server	actionType	actionDescription
-2022-02-11	09:13:59.092326451	Eastern Standard Time	sqluser	192.168.56.101	INFO	Connection established to jdbc:mysql://192.168.56.101
-2022-02-11	09:13:59.097920066	Eastern Standard Time	sqluser	192.168.56.101	LOGIN	User logged in
-2022-02-11	09:14:01.341314199	Eastern Standard Time	sqluser	192.168.56.101	INFO	Connection closed to jdbc:mysql://192.168.56.101

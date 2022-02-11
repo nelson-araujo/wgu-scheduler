@@ -1,2 +1,0 @@
-date	time	timezone	user	Server	actionType	actionDescription
-2022-02-11	09:13:59.097920066	Eastern Standard Time	sqluser	192.168.56.101	LOGIN	User logged in
