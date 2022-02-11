@@ -1,6 +1,7 @@
 package com.nelsonaraujo.wguscheduler;
 
 import com.nelsonaraujo.wguscheduler.Model.DBConnection;
+import com.nelsonaraujo.wguscheduler.Model.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,7 @@ public class wguScheduler extends Application {
 
         // Stage close request
         stage.setOnCloseRequest(e -> DBConnection.closeConnection());
+
     }
 
     @FXML
@@ -37,7 +39,7 @@ public class wguScheduler extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(wguScheduler.class.getResource("main-view.fxml"));
         Scene sceneLogin = new Scene(fxmlLoader.load());
 
-        stage.setTitle("Scheduler - Main");
+        stage.setTitle("Scheduler" + " - " +Logger.getCurrUser() + "@" +Logger.getCurrServer());
         stage.setScene(sceneLogin);
         stage.show();
 

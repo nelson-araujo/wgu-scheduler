@@ -1,6 +1,7 @@
 package com.nelsonaraujo.wguscheduler.Controller;
 
 import com.nelsonaraujo.wguscheduler.Model.DBConnection;
+import com.nelsonaraujo.wguscheduler.Model.Logger;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
 import com.nelsonaraujo.wguscheduler.Model.UserLocale;
 import javafx.application.Platform;
@@ -35,9 +36,18 @@ public class LoginController implements Initializable {
         if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()){
             loginErrorLabel.setText("A Username and password is required");
         } else {
-            // TODO - DB Error handling
+            // Logger setup
+            Logger.setCurrUser(usernameTextField.getText().trim());
+            Logger.setCurrServer(DBConnection.SERVER_NAME);
+
+            // TODO - DB Error handling - server not found https://stackoverflow.com/questions/7685439/how-to-test-if-a-remote-system-is-reachable
+            // TODO - DB Error handling - Error don't open main scene
             DBConnection.startConnection(usernameTextField.getText().trim(), passwordField.getText().trim());
-            wguScheduler.mainScene(); // Open main scene
+
+            Logger.logAction(Logger.ActionType.LOGIN,"User logged in");
+
+            // Open main scene
+            wguScheduler.mainScene();
         }
     }
 
