@@ -14,6 +14,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,21 +34,24 @@ public class LoginController implements Initializable {
 
     @FXML
     protected void onLoginButtonClick() throws IOException {
-        if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()){
+        if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()) {
             loginErrorLabel.setText("A Username and password is required");
+        } else if(!InetAddress.getByName(DBConnection.SERVER_NAME).isReachable(1)){
+            loginErrorLabel.setText("Server not reachable");
+            Logger.logAction(Logger.ActionType.ERROR,"Server not reachable (" +DBConnection.SERVER_NAME + ")");
         } else {
             // Logger setup
             Logger.setCurrUser(usernameTextField.getText().trim());
             Logger.setCurrServer(DBConnection.SERVER_NAME);
 
-            // TODO - DB Error handling - server not found https://stackoverflow.com/questions/7685439/how-to-test-if-a-remote-system-is-reachable
-            // TODO - DB Error handling - Error don't open main scene
-            DBConnection.startConnection(usernameTextField.getText().trim(), passwordField.getText().trim());
+            if (DBConnection.startConnection(usernameTextField.getText().trim(), passwordField.getText().trim()) != null) {
+                Logger.logAction(Logger.ActionType.LOGIN, "User logged in");
 
-            Logger.logAction(Logger.ActionType.LOGIN,"User logged in");
-
-            // Open main scene
-            wguScheduler.mainScene();
+                // Open main scene
+                wguScheduler.mainScene();
+            } else {
+                loginErrorLabel.setText("Unable to connect, please try again");
+            }
         }
     }
 

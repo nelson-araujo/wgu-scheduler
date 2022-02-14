@@ -27,7 +27,7 @@ public class DBConnection {
             Logger.logAction(Logger.ActionType.INFO, "Connection established to " +JDBC_URL);
 
         } catch(ClassNotFoundException | SQLException e){
-            Logger.logAction(Logger.ActionType.ERROR, "e.getMessage()");
+            Logger.logAction(Logger.ActionType.ERROR, e.getMessage());
 
             // Notify the user of the error
             Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.CLOSE);
@@ -45,7 +45,7 @@ public class DBConnection {
         } catch (SQLException e){
             Logger.logAction(Logger.ActionType.ERROR, e.getMessage());
         } catch (NullPointerException e){
-            Logger.logAction(Logger.ActionType.INFO, "No connections to close");
+            // no connections to close
         }
     }
 
