@@ -34,6 +34,7 @@ public class LoginController implements Initializable {
 
     @FXML
     protected void onLoginButtonClick() throws IOException {
+        // TODO: Move DB error handling to DBConnection class
         if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()) {
             loginErrorLabel.setText("A Username and password is required");
         } else if(!InetAddress.getByName(DBConnection.SERVER_NAME).isReachable(1)){
