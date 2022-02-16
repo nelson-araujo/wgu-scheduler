@@ -1,3 +1,4 @@
 # wgu-scheduler
 WGU Software II - Advanced Java Concepts - C195 Project
-Nelson Araujo
+
+Nelson Araujo - narauj4@wgu.edu
