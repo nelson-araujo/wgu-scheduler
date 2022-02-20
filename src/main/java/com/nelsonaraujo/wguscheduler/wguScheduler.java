@@ -36,7 +36,7 @@ public class wguScheduler extends Application {
 
     @FXML
     public static void mainScene() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(wguScheduler.class.getResource("main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(wguScheduler.class.getResource("appointments-view.fxml"));
         Scene sceneLogin = new Scene(fxmlLoader.load());
 
         stage.setTitle("Scheduler" + " - " +Logger.getCurrUser() + "@" +Logger.getCurrServer());
