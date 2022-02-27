@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -59,11 +60,24 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></Label>
-                  <TableView fx:id="upcommingTblView" minWidth="-Infinity" prefHeight="50.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
+                  <TableView fx:id="upcomingTblView" minWidth="-Infinity" prefHeight="50.0">
+                     <columns>
+                        <TableColumn minWidth="50.0" prefWidth="175.0" text="Start">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="start" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn minWidth="70.0" prefWidth="125.0" text="Type">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="type" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn minWidth="121.0" prefWidth="130.0" text="Customer Name">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="customerName" />
+                           </cellValueFactory>
+                        </TableColumn>
+                     </columns>
                   </TableView>
                   <HBox>
                      <children>
@@ -109,10 +123,23 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView fx:id="appointmentsTblView">
+                  <TableView fx:id="appointmentsTblView" prefHeight="200.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn minWidth="50.0" prefWidth="175.0" text="Start">
+                         <cellValueFactory>
+                            <PropertyValueFactory property="start" />
+                         </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn minWidth="70.0" prefWidth="125.0" text="Type">
+                         <cellValueFactory>
+                            <PropertyValueFactory property="type" />
+                         </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn minWidth="121.0" prefWidth="130.0" text="Customer Name">
+                         <cellValueFactory>
+                            <PropertyValueFactory property="customerName" />
+                         </cellValueFactory>
+                      </TableColumn>
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" />
@@ -120,7 +147,7 @@
                   </TableView>
                   <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                      <Button fx:id="exitBtn" onAction="#onexitBtnClick" mnemonicParsing="false" text="Exit" />
+                      <Button fx:id="exitBtn" mnemonicParsing="false" onAction="#onExitBtnClick" text="Exit" />
                     </buttons>
                   </ButtonBar>
                </children>
