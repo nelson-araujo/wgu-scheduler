@@ -1,25 +1,18 @@
 package com.nelsonaraujo.wguscheduler.Controller;
 
-import com.nelsonaraujo.wguscheduler.Model.DBConnection;
-import com.nelsonaraujo.wguscheduler.Model.Globals;
-import com.nelsonaraujo.wguscheduler.Model.Logger;
+import com.nelsonaraujo.wguscheduler.Model.*;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
-import com.nelsonaraujo.wguscheduler.Model.UserLocale;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-
-
-
     @FXML private TextField usernameTextField;
     @FXML private PasswordField passwordField;
     @FXML private Label serverNameLabel;
@@ -34,7 +27,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        serverNameLabel.setText(DBConnection.SERVER_NAME); // Set server name
+        serverNameLabel.setText(Datasource.SERVER_NAME); // Set server name
         userLocaleImage.setImage(UserLocale.getLocaleFlag());
         Tooltip.install(userLocaleImage, new Tooltip(UserLocale.getUserLocaleString())); // Create tooltip for language
         rb = Globals.rb_lang;
@@ -51,18 +44,19 @@ public class LoginController implements Initializable {
 
     @FXML
     protected void onLoginButtonClick() throws IOException {
-        // TODO: Move DB error handling to DBConnection class
+        Datasource datasource = new Datasource();
+
         if(usernameTextField.getText().trim().isEmpty() || passwordField.getText().isEmpty()) {
             loginErrorLabel.setText(Globals.rb_lang.getString("err_credentials_required"));
-        } else if(!InetAddress.getByName(DBConnection.SERVER_NAME).isReachable(1)){
+        } else if(!InetAddress.getByName(Datasource.SERVER_NAME).isReachable(1)){
             loginErrorLabel.setText(Globals.rb_lang.getString("err_server_unreachable"));
-            Logger.logAction(Logger.ActionType.ERROR,"Server not reachable (" +DBConnection.SERVER_NAME + ")");
+            Logger.logAction(Logger.ActionType.ERROR,"Server not reachable (" +Datasource.SERVER_NAME + ")");
         } else {
             // Logger setup
             Logger.setCurrUser(usernameTextField.getText().trim());
-            Logger.setCurrServer(DBConnection.SERVER_NAME);
+            Logger.setCurrServer(datasource.SERVER_NAME);
 
-            if (DBConnection.startConnection(usernameTextField.getText().trim(), passwordField.getText().trim()) != null) {
+            if (Datasource.open(usernameTextField.getText().trim(), passwordField.getText().trim())) {
                 Logger.logAction(Logger.ActionType.LOGIN, "User logged in");
 
                 // Open main scene
@@ -75,7 +69,7 @@ public class LoginController implements Initializable {
 
     @FXML
     protected void onCloseButtonClick(){
-        DBConnection.closeConnection();
+        Datasource.close();
         Platform.exit();
     }
 }

@@ -13,7 +13,7 @@
          <children>
             <VBox alignment="TOP_CENTER" minWidth="50.0" style="-fx-background-color: #DCDCDC;">
                <children>
-                  <ImageView accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="appointmentsBtn" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/appointmentsIcon.png" />
                      </image>
@@ -24,7 +24,7 @@
                         <ColorAdjust brightness="0.5" />
                      </effect>
                   </ImageView>
-                  <ImageView accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="customerBtn" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/contactsIcon.png" />
                      </image>
@@ -32,7 +32,7 @@
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
                      </VBox.margin>
                   </ImageView>
-                  <ImageView accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="usersBtn" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/userIcon.png" />
                      </image>
@@ -59,7 +59,7 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></Label>
-                  <TableView minWidth="-Infinity" prefHeight="50.0">
+                  <TableView fx:id="upcommingTblView" minWidth="-Infinity" prefHeight="50.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
@@ -67,17 +67,17 @@
                   </TableView>
                   <HBox>
                      <children>
-                        <Button mnemonicParsing="false" text="Add Appointment">
+                        <Button fx:id="addBtn" mnemonicParsing="false" text="Add">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" text="Update Appointment">
+                        <Button fx:id="updateBtn" mnemonicParsing="false" text="Update">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button layoutX="152.0" layoutY="10.0" mnemonicParsing="false" text="Cancel Appointment">
+                        <Button fx:id="cancelBtn" layoutX="152.0" layoutY="10.0" mnemonicParsing="false" text="Cancel">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin></Button>
@@ -88,28 +88,28 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Week">
+                        <RadioButton fx:id="weekRbtn" mnemonicParsing="false" text="Week">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Month">
+                        <RadioButton fx:id="monthRBtn" mnemonicParsing="false" text="Month">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <TextField promptText="Search">
+                        <TextField fx:id="searchTxtFld" promptText="Search">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
                         </TextField>
-                        <ChoiceBox minWidth="150.0" />
+                        <ChoiceBox fx:id="timezoneChcBx" minWidth="150.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView>
+                  <TableView fx:id="appointmentsTblView">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
                       <TableColumn prefWidth="75.0" text="C2" />
@@ -118,6 +118,11 @@
                         <Insets bottom="5.0" />
                      </VBox.margin>
                   </TableView>
+                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                      <Button fx:id="exitBtn" onAction="#onexitBtnClick" mnemonicParsing="false" text="Exit" />
+                    </buttons>
+                  </ButtonBar>
                </children>
                <HBox.margin>
                   <Insets left="10.0" right="5.0" top="10.0" />

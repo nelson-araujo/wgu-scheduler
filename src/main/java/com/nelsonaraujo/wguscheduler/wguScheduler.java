@@ -1,13 +1,12 @@
 package com.nelsonaraujo.wguscheduler;
 
-import com.nelsonaraujo.wguscheduler.Model.DBConnection;
+import com.nelsonaraujo.wguscheduler.Model.Datasource;
 import com.nelsonaraujo.wguscheduler.Model.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class wguScheduler extends Application {
@@ -30,7 +29,7 @@ public class wguScheduler extends Application {
         stage.setMinHeight(stage.getHeight());
 
         // Stage close request
-        stage.setOnCloseRequest(e -> DBConnection.closeConnection());
+        stage.setOnCloseRequest(e -> Datasource.close());
 
     }
 
