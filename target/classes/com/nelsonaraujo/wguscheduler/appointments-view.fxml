@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="TOP_CENTER" minWidth="50.0" style="-fx-background-color: #DCDCDC;">
                <children>
-                  <ImageView fx:id="appointmentsBtn" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="appointmentsIcon" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/appointmentsIcon.png" />
                      </image>
@@ -25,17 +25,9 @@
                         <ColorAdjust brightness="0.5" />
                      </effect>
                   </ImageView>
-                  <ImageView fx:id="customerBtn" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="customersIcon" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@icons/contactsIcon.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <ImageView fx:id="usersBtn" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icons/userIcon.png" />
+                        <Image url="@icons/customersIcon.png" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />

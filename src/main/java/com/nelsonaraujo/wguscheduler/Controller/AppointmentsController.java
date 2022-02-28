@@ -6,12 +6,18 @@ import com.nelsonaraujo.wguscheduler.Model.Datasource;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 
 public class AppointmentsController {
     @FXML TableView<Appointment> appointmentsTblView;
+    @FXML ImageView appointmentsIcon;
+    @FXML ImageView customersIcon;
 
     public void initialize(){
         appointmentsTblView.setItems(Appointments.getAppointmentsOL());
+        Tooltip.install(appointmentsIcon, new Tooltip("Appointments"));
+        Tooltip.install(customersIcon, new Tooltip("Customers"));
 
         // TODO: REMOVE
 //        System.out.println("id:" + appointmentsTblView.getItems().get(0).getId()
