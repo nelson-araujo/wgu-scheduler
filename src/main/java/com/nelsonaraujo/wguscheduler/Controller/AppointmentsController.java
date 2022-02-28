@@ -3,11 +3,14 @@ package com.nelsonaraujo.wguscheduler.Controller;
 import com.nelsonaraujo.wguscheduler.Model.Appointment;
 import com.nelsonaraujo.wguscheduler.Model.Appointments;
 import com.nelsonaraujo.wguscheduler.Model.Datasource;
+import com.nelsonaraujo.wguscheduler.wguScheduler;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
+
+import java.io.IOException;
 
 public class AppointmentsController {
     @FXML TableView<Appointment> appointmentsTblView;
@@ -52,6 +55,11 @@ public class AppointmentsController {
 //                +" | ContactId:" + appointmentsTblView.getItems().get(1).getContactId()
 //                +" | customerName:" + appointmentsTblView.getItems().get(1).getCustomerName()
 //        );
+    }
+
+    @FXML
+    protected void onCustomersIconClick() throws IOException {
+        wguScheduler.customersScene();
     }
 
     @FXML

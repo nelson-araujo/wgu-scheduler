@@ -25,7 +25,7 @@
                         <ColorAdjust brightness="0.5" />
                      </effect>
                   </ImageView>
-                  <ImageView fx:id="customersIcon" accessibleRole="BUTTON" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="customersIcon" accessibleRole="BUTTON" onMouseClicked="#onCustomersIconClick" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icons/customersIcon.png" />
                      </image>
@@ -38,7 +38,7 @@
                   <Insets />
                </HBox.margin>
             </VBox>
-            <VBox>
+            <VBox prefWidth="700.0">
                <children>
                   <Label text="Appointments">
                      <font>
