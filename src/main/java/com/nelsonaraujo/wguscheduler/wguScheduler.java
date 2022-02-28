@@ -30,7 +30,6 @@ public class wguScheduler extends Application {
 
         // Stage close request
         stage.setOnCloseRequest(e -> Datasource.close());
-
     }
 
     @FXML
@@ -45,7 +44,6 @@ public class wguScheduler extends Application {
         // Set stage minimum size to the opening size.
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
-
     }
 
     @FXML
@@ -60,7 +58,6 @@ public class wguScheduler extends Application {
         // Set stage minimum size to the opening size.
         stage.setMinWidth(stage.getWidth());
         stage.setMinHeight(stage.getHeight());
-
     }
 
     public static void main(String[] args) {

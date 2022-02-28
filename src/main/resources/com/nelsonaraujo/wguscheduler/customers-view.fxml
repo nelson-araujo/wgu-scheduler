@@ -50,12 +50,12 @@
                         </Label>
                         <HBox>
                             <children>
-                                <Button fx:id="addBtn" mnemonicParsing="false" text="Add">
+                                <Button fx:id="addBtn" onAction="#customerAddBtnOnAction" mnemonicParsing="false" text="Add">
                                     <HBox.margin>
                                         <Insets right="15.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="updateBtn" mnemonicParsing="false" text="Update">
+                                <Button fx:id="updateBtn" onAction="#customerUpdateBtnOnAction" mnemonicParsing="false" text="Update">
                                     <HBox.margin>
                                         <Insets right="15.0" />
                                     </HBox.margin>
