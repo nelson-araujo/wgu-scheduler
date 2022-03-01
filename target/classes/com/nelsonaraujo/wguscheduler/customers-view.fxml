@@ -50,12 +50,12 @@
                         </Label>
                         <HBox>
                             <children>
-                                <Button fx:id="addBtn" onAction="#customerAddBtnOnAction" mnemonicParsing="false" text="Add">
+                                <Button fx:id="addBtn" mnemonicParsing="false" onAction="#customerAddBtnOnAction" text="Add">
                                     <HBox.margin>
                                         <Insets right="15.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="updateBtn" onAction="#customerUpdateBtnOnAction" mnemonicParsing="false" text="Update">
+                                <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#customerUpdateBtnOnAction" text="Update">
                                     <HBox.margin>
                                         <Insets right="15.0" />
                                     </HBox.margin>
@@ -69,41 +69,41 @@
                                 <Insets bottom="10.0" top="20.0" />
                             </VBox.margin>
                         </HBox>
-                        <TableView fx:id="appointmentsTblView" prefHeight="200.0">
+                        <TableView fx:id="customersTblView" prefHeight="200.0">
                             <columns>
                                 <TableColumn minWidth="20.0" prefWidth="20.0" text="ID">
                                     <cellValueFactory>
-<!--                                        <PropertyValueFactory property="id" />-->
+                                        <PropertyValueFactory property="id" />
                                     </cellValueFactory>
                                 </TableColumn>
                                 <TableColumn minWidth="50.0" prefWidth="125.0" text="Name">
                                     <cellValueFactory>
-<!--                                        <PropertyValueFactory property="name" />-->
+                                        <PropertyValueFactory property="name" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn minWidth="50.0" prefWidth="100.0" text="Phone">
+                                <TableColumn minWidth="50.0" prefWidth="110.0" text="Phone">
                                     <cellValueFactory>
-<!--                                        <PropertyValueFactory property="phone" />-->
+                                        <PropertyValueFactory property="phone" />
                                     </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn minWidth="70.0" prefWidth="150.0" text="Address">
+                                <TableColumn minWidth="70.0" prefWidth="125.0" text="Address">
                                    <cellValueFactory>
-<!--                                      <PropertyValueFactory property="address" />-->
+                                      <PropertyValueFactory property="address" />
                                    </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn minWidth="70.0" text="Zip Code">
+                                <TableColumn minWidth="95.0" prefWidth="95.0" text="Postal Code">
                                    <cellValueFactory>
-<!--                                      <PropertyValueFactory property="postalCode" />-->
+                                      <PropertyValueFactory property="postalCode" />
                                    </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn minWidth="45.0" prefWidth="100.0" text="State">
+                                <TableColumn minWidth="115.0" prefWidth="140.0" text="State/Province">
                                    <cellValueFactory>
-<!--                                      <PropertyValueFactory property="divisionName" />-->
+                                      <PropertyValueFactory property="divisionName" />
                                    </cellValueFactory>
                                 </TableColumn>
-                                <TableColumn minWidth="65.0" prefWidth="100.0" text="Country">
+                                <TableColumn minWidth="65.0" prefWidth="75.0" text="Country">
                                    <cellValueFactory>
-<!--                                      <PropertyValueFactory property="country" />-->
+                                      <PropertyValueFactory property="countryName" />
                                    </cellValueFactory>
                                 </TableColumn>
                             </columns>

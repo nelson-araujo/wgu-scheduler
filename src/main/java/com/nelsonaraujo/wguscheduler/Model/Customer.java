@@ -13,6 +13,8 @@ public class Customer {
     private Timestamp lastUpdate;
     private String lastUpdateBy;
     private int divisionId;
+    private String divisionName;
+    private String countryName;
 
     public int getId() {
         return id;
@@ -92,5 +94,21 @@ public class Customer {
 
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
+    }
+
+    public String getDivisionName() {
+        return divisionName;
+    }
+
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
+    }
+
+    public String getCountryName() {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) {
+        this.countryName = countryName;
     }
 }

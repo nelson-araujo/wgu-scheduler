@@ -1,7 +1,6 @@
 package com.nelsonaraujo.wguscheduler.Controller;
 
-import com.nelsonaraujo.wguscheduler.Model.Appointment;
-import com.nelsonaraujo.wguscheduler.Model.Appointments;
+import com.nelsonaraujo.wguscheduler.Model.Customers;
 import com.nelsonaraujo.wguscheduler.Model.Datasource;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
 import javafx.application.Platform;
@@ -10,23 +9,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class CustomersController {
 //    @FXML TableView<Customers> customersTblView;
     @FXML ImageView appointmentsIcon;
     @FXML ImageView customersIcon;
+    @FXML TableView customersTblView;
 
     public void initialize(){
-//        customersTblView.setItems(Customers.getCustomersOL());
+        customersTblView.setItems(Customers.getCustomersOL());
         Tooltip.install(appointmentsIcon, new Tooltip("Appointments"));
         Tooltip.install(customersIcon, new Tooltip("Customers"));
     }
