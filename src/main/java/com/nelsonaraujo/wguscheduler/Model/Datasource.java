@@ -237,6 +237,7 @@ public class Datasource {
    // Open the connection
     public static boolean open(String username, String password){
         try{
+            // TODO: username and password not the one on the client_schedule database
             conn = DriverManager.getConnection(CONNECTION_STRING, username, password);
             return true;
 
