@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
+import java.sql.Time;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -39,7 +40,6 @@ public class LoginController implements Initializable {
         serverLbl.setText(rb.getString("server"));
         loginBtn.setText(rb.getString("btn_login"));
         closeBtn.setText(rb.getString("btn_close"));
-
     }
 
     @FXML

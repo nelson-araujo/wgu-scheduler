@@ -19,8 +19,8 @@
          <children>
             <HBox layoutX="10.0" layoutY="10.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="104.0" text="ID: " />
-                  <TextField />
+                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="ID: " />
+                  <TextField minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -28,8 +28,8 @@
             </HBox>
             <HBox>
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="104.0" text="Name: " />
-                  <TextField />
+                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Name: " />
+                  <TextField minHeight="-Infinity" prefHeight="26.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -37,8 +37,8 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="10.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="104.0" text="Phone: " />
-                  <TextField />
+                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Phone: " />
+                  <TextField minHeight="-Infinity" prefHeight="26.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -46,8 +46,8 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="44.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="104.0" text="Address: " />
-                  <TextField />
+                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Address: " />
+                  <TextField minHeight="-Infinity" prefHeight="26.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -55,8 +55,8 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="78.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="104.0" text="Zip Code: " />
-                  <TextField />
+                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Zip Code: " />
+                  <TextField minHeight="-Infinity" prefHeight="26.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -64,8 +64,8 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="112.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="104.0" text="Country: " />
-                  <ChoiceBox prefWidth="150.0" />
+                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Country: " />
+                  <ChoiceBox minHeight="-Infinity" prefHeight="26.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -73,8 +73,8 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="146.0">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefWidth="104.0" text="State/Province: " />
-                  <ChoiceBox prefWidth="150.0" />
+                  <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="State/Province: " />
+                  <ChoiceBox minHeight="-Infinity" prefHeight="26.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
