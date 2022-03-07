@@ -2,6 +2,7 @@ package com.nelsonaraujo.wguscheduler.Controller;
 
 import com.nelsonaraujo.wguscheduler.Model.Appointment;
 import com.nelsonaraujo.wguscheduler.Model.Appointments;
+import com.nelsonaraujo.wguscheduler.Model.Countries;
 import com.nelsonaraujo.wguscheduler.Model.Datasource;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
 import javafx.application.Platform;

@@ -233,7 +233,81 @@ public class Datasource {
             }
         }
     }
- 
+
+    // Query country divisions
+
+    /** Query database for countries and their first level divisions.
+     *  Countries list is populated.
+     */
+    public static void queryCountryDivisions() {
+        Statement statement = null;
+        ResultSet results = null;
+
+        // Query
+        String query = "SELECT "
+                + TABLE_COUNTRIES + "." + COLUMN_COUNTRY_COUNTRY
+                + "," + TABLE_FLD + "." + COLUMN_FLD_DIVISION
+                + " FROM " + TABLE_COUNTRIES
+                + " JOIN " + TABLE_FLD
+                + " ON " + TABLE_COUNTRIES + "." + COLUMN_COUNTRY_ID
+                + " = " + TABLE_FLD +"." + COLUMN_FLD_COUNTRY_ID
+                ;
+
+        try{
+            statement = conn.createStatement();
+            results = statement.executeQuery(query);
+
+            List<Country> countries = Countries.getCountries(); // Get countries list
+
+            while(results.next()){
+
+                Boolean countryExists = false;
+                for(Country country : countries){
+                    if(country.name.equals(results.getString(COLUMN_COUNTRY_COUNTRY))){
+                        countryExists = true;
+                    }
+
+                    if(countryExists) break; // Break out of loop if exists
+                }
+
+                // Check if country already exists on list
+                if(countryExists){
+                    Country country = Countries.getCountry(results.getString(COLUMN_COUNTRY_COUNTRY));
+                    country.setFirstLevelDivisions(results.getString(COLUMN_FLD_DIVISION));
+                } else {
+                    Country country = new Country();
+                    country.setName(results.getString(COLUMN_COUNTRY_COUNTRY)); // Set country name
+                    country.setFirstLevelDivisions(results.getString(COLUMN_FLD_DIVISION));
+
+                    countries.add(country);
+                }
+            }
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+        } finally {
+            // Close result set
+            try{
+                if(results != null){
+                    results.close();
+                }
+            } catch(SQLException e){
+                System.out.println("ResultSet failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "ResultSet failed to close: " + e.getMessage()); // Log message
+            }
+
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+    }
+
    // Open the connection
     public static boolean open(String username, String password){
         try{

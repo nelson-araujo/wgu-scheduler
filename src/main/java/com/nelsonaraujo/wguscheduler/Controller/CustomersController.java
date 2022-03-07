@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CustomersController {
-//    @FXML TableView<Customers> customersTblView;
     @FXML ImageView appointmentsIcon;
     @FXML ImageView customersIcon;
     @FXML TableView customersTblView;

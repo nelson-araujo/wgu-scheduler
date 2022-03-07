@@ -1,7 +1,7 @@
 package com.nelsonaraujo.wguscheduler.Controller;
 
-import com.nelsonaraujo.wguscheduler.Model.Customers;
-import com.nelsonaraujo.wguscheduler.Model.TimeZones;
+import com.nelsonaraujo.wguscheduler.Model.*;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -17,6 +17,10 @@ public class CustomerAddController {
     @FXML TextField postalCodeTxtFld;
     @FXML ChoiceBox countryChcBx;
     @FXML ChoiceBox stateProvinceChcBx;
+
+    public void initialize(){
+        countryChcBx.setItems(FXCollections.observableArrayList(Countries.getCountriesList()));
+    }
 
     /** Check if entered fields are valid.
      *
@@ -87,5 +91,11 @@ public class CustomerAddController {
     private void cancelBtnAction(){
         Stage stage= (Stage) cancelBtn.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void onCountrySelection(){
+        String countrySelection = countryChcBx.getValue().toString();
+        stateProvinceChcBx.setItems((FXCollections.observableArrayList(Countries.getCountryFld(countrySelection))));
     }
 }
