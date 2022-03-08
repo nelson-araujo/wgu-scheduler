@@ -1,5 +1,8 @@
 package com.nelsonaraujo.wguscheduler.Model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -8,8 +11,8 @@ import java.util.*;
 
 public class TimeZones {
 
-    /** Build list of all available time zones.
-     *
+    /**
+     * Build list of all available time zones.
      * @return Sorted list of all available time zones.
      */
     public static List<String> getTimeZonesList() {
@@ -35,4 +38,16 @@ public class TimeZones {
         return allTimeZonesListSorted;
     }
 
+    /**
+     * Get the current local time.
+     * @return local time
+     */
+    public static Timestamp getLocalTime(){
+        return Timestamp.valueOf(LocalDateTime.now());
+    }
+
+    public static Timestamp getUtcTime(){
+        System.out.println(Instant.now());
+        return null;
+    }
 }

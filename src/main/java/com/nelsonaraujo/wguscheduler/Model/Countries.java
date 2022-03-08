@@ -1,8 +1,5 @@
 package com.nelsonaraujo.wguscheduler.Model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +39,7 @@ public class Countries {
      */
     public static List<String> getCountriesList(){
         if(countries.isEmpty()){
-            Datasource.queryCountryDivisions();
+            Datasource.queryCountryDivisions2();
         }
 
         List<String> countryNames = new ArrayList<>();
@@ -54,20 +51,38 @@ public class Countries {
         return countryNames;
     }
 
+    /** Get a country's first level divisions list.
+     *
+     * @param selectedCountry Country to return the first level divisions for.
+     * @return List of first level division names and ID.
+     */
+    public static List<FirstLevelDivisions> getCountryFld(String selectedCountry){
+        List<FirstLevelDivisions> fldList = new ArrayList<>();
+
+        for(Country country : countries){
+            if(country.getName() == selectedCountry){
+                fldList = country.firstLevelDivisions2;
+            }
+        }
+
+        return fldList;
+    }
+
     /** Get a country's first level divisions.
      *
      * @param selectedCountry Country to return the first level divisions for.
      * @return List of first level divisions.
      */
-    public static List<String> getCountryFld(String selectedCountry){
+    public static List<String> getCountryFldNames(String selectedCountry){
         List<String> fldList = new ArrayList<>();
 
         for(Country country : countries){
             if(country.getName() == selectedCountry){
-                fldList = country.firstLevelDivisions;
+                for( int i=0 ; i < country.getFirstLevelDivisions2().size() ; i++){
+                    fldList.add(country.getFirstLevelDivisions2().get(i).name);
+                }
             }
         }
-
         return fldList;
     }
 }

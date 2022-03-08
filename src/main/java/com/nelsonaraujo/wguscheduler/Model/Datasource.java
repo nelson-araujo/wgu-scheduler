@@ -66,7 +66,10 @@ public class Datasource {
     // Database connection
     private static Connection conn;
 
-    // Query appointments
+    /**
+     * Query database for all appointments.
+     * @return List of all appointments.
+     */
     public static List<Appointment> queryAppointments(){
         Statement statement = null;
         ResultSet results = null;
@@ -152,7 +155,10 @@ public class Datasource {
         }
     }
 
-    // Query customers
+    /**
+     * Query database for all the customers.
+     * @return List of all customers in the database.
+     */
     public static List<Customer> queryCustomers(){
         Statement statement = null;
         ResultSet results = null;
@@ -234,12 +240,10 @@ public class Datasource {
         }
     }
 
-    // Query country divisions
-
-    /** Query database for countries and their first level divisions.
-     *  Countries list is populated.
+    /**
+     * Query database for countries and their first level divisions.
      */
-    public static void queryCountryDivisions() {
+    public static void queryCountryDivisions2() {
         Statement statement = null;
         ResultSet results = null;
 
@@ -247,6 +251,7 @@ public class Datasource {
         String query = "SELECT "
                 + TABLE_COUNTRIES + "." + COLUMN_COUNTRY_COUNTRY
                 + "," + TABLE_FLD + "." + COLUMN_FLD_DIVISION
+                + "," + TABLE_FLD + "." + COLUMN_FLD_ID
                 + " FROM " + TABLE_COUNTRIES
                 + " JOIN " + TABLE_FLD
                 + " ON " + TABLE_COUNTRIES + "." + COLUMN_COUNTRY_ID
@@ -260,6 +265,7 @@ public class Datasource {
             List<Country> countries = Countries.getCountries(); // Get countries list
 
             while(results.next()){
+                FirstLevelDivisions firstLevelDivisionsList = new FirstLevelDivisions();
 
                 Boolean countryExists = false;
                 for(Country country : countries){
@@ -272,12 +278,20 @@ public class Datasource {
 
                 // Check if country already exists on list
                 if(countryExists){
-                    Country country = Countries.getCountry(results.getString(COLUMN_COUNTRY_COUNTRY));
-                    country.setFirstLevelDivisions(results.getString(COLUMN_FLD_DIVISION));
+                    Country country = Countries.getCountry(results.getString(COLUMN_COUNTRY_COUNTRY)); // Set country name
+
+                    firstLevelDivisionsList.setId(results.getInt(COLUMN_FLD_ID));
+                    firstLevelDivisionsList.setName(results.getString(COLUMN_FLD_DIVISION));
+
+
+                    country.setFirstLevelDivisions2(firstLevelDivisionsList); // Set first level divisions
                 } else {
                     Country country = new Country();
                     country.setName(results.getString(COLUMN_COUNTRY_COUNTRY)); // Set country name
-                    country.setFirstLevelDivisions(results.getString(COLUMN_FLD_DIVISION));
+
+                    firstLevelDivisionsList.setId(results.getInt(COLUMN_FLD_ID));
+                    firstLevelDivisionsList.setName(results.getString(COLUMN_FLD_DIVISION));
+                    country.setFirstLevelDivisions2(firstLevelDivisionsList); // Set first level divisions
 
                     countries.add(country);
                 }
@@ -308,7 +322,12 @@ public class Datasource {
         }
     }
 
-   // Open the connection
+    /**
+     * Open connection to the database.
+     * @param username username to be used to connect.
+     * @param password password to be used to connect.
+     * @return Connection to the database.
+     */
     public static boolean open(String username, String password){
         try{
             // TODO: username and password not the one on the client_schedule database
@@ -326,7 +345,9 @@ public class Datasource {
         }
     }
 
-    // Close the connection
+    /**
+     * Close the connection to the database.
+     */
     public static void close() {
         try {
             if (conn != null) {

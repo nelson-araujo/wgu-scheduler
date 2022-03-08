@@ -9,8 +9,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
+
 public class CustomerAddController {
     @FXML Button cancelBtn;
+    @FXML Button addBtn;
     @FXML TextField nameTxtFld;
     @FXML TextField phoneTxtFld;
     @FXML TextField addressTxtFld;
@@ -68,23 +74,38 @@ public class CustomerAddController {
         return isValid;
     }
 
-    // Highlight text field
+    /**
+     * Highlight specified field.
+     * @param field Field that is not valid
+     */
     private static void invalidField(TextField field){
         if(field != null){
             field.setStyle("-fx-border-color: #d99999");
         }
     }
 
-    // Highlight selection field
+    /**
+     * Check if user inputs are valid
+     * @param field Are fields valid?
+     */
     private static void invalidField(ChoiceBox field){
         if(field != null){
             field.setStyle("-fx-border-color: #d99999");
         }
     }
 
+    /**
+     * Verify user entered entries and add customer.
+     */
     @FXML
     private void addBtnAction(){
-        isFieldsValid();
+        if(isFieldsValid()){
+            addCustomer();
+
+            // Close stage
+            Stage stage= (Stage) addBtn.getScene().getWindow();
+            stage.close();
+        }
     }
 
     @FXML
@@ -93,9 +114,46 @@ public class CustomerAddController {
         stage.close();
     }
 
+    /**
+     * When the country is selected populate the first division selection.
+     */
     @FXML
     private void onCountrySelection(){
         String countrySelection = countryChcBx.getValue().toString();
-        stateProvinceChcBx.setItems((FXCollections.observableArrayList(Countries.getCountryFld(countrySelection))));
+        stateProvinceChcBx.setItems((FXCollections.observableArrayList(Countries.getCountryFldNames(countrySelection))));
+    }
+
+    /**
+     * Add a customer to the database.
+     */
+    @FXML
+    private void addCustomer(){
+        String name = nameTxtFld.getText();
+        String address = addressTxtFld.getText();
+        String postalCode = postalCodeTxtFld.getText();
+        String phone = phoneTxtFld.getText();
+        Timestamp createDate = Timestamp.valueOf(LocalDateTime.now()); // Todo: Convert to UTC
+        String createBy = "temp"; // Todo: Populate
+        Timestamp updateDate = Timestamp.valueOf(LocalDateTime.now()); // Todo: Convert to UTC
+        String updateBy = "temp"; // Todo: Populate
+        Integer divisionId = null ;
+        String countrySelected = countryChcBx.getValue().toString();
+        String divisionSelected = stateProvinceChcBx.getValue().toString();
+
+        // Find the first level division ID
+        List<FirstLevelDivisions> countryFldList = Countries.getCountryFld(countrySelected);
+        for(FirstLevelDivisions fld : countryFldList){
+            if(fld.getName() == divisionSelected){
+                divisionId = fld.getId();
+                break; // Exit out of loop
+            }
+        }
+
+
+
+        System.out.println("name:" + name + " | address:" + address + " | postalCode:" + postalCode +
+                " | phone:" + phone + " | createDate:" + createDate + " | createBy:" + createBy +
+                " | updateDate:" +updateDate + " | updateBy:" + updateBy + " | countrySelected:" + countrySelected +
+                " | divisionSelected:" + divisionSelected + " | divisionId:" + divisionId);
     }
 }
