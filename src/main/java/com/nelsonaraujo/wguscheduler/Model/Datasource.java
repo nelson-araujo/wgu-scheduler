@@ -373,7 +373,7 @@ public class Datasource {
                 + "," + divisionId
                 + ")"
                 ;
-
+        Logger.logAction(Logger.ActionType.INFO,"Add customer: " + name + ", " + phone );
         return runQueryNoResults(query);
     }
 
