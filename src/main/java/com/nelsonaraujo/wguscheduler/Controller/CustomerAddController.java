@@ -149,7 +149,7 @@ public class CustomerAddController {
             }
         }
 
-
+        Datasource.addCustomer(name,address,postalCode,phone,createBy,updateBy,divisionId);
 
         System.out.println("name:" + name + " | address:" + address + " | postalCode:" + postalCode +
                 " | phone:" + phone + " | createDate:" + createDate + " | createBy:" + createBy +

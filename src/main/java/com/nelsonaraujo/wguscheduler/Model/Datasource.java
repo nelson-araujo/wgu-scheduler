@@ -346,6 +346,67 @@ public class Datasource {
     }
 
     /**
+     * Add a customer to the database.
+     * @param name
+     * @param address
+     * @param postalCode
+     * @param phone
+     * @param createBy
+     * @param updateBy
+     * @param divisionId
+     * @return Add of customer successful.
+     */
+    public static boolean addCustomer(String name, String address, String postalCode,
+                                      String phone, String createBy, String updateBy, Integer divisionId){
+        String query = "INSERT INTO"
+                + " " + TABLE_CUSTOMERS
+                + " VALUES("
+                + "NULL"
+                + ",\"" + name + "\""
+                + ",\"" + address + "\""
+                + ",\"" + postalCode + "\""
+                + ",\"" + phone + "\""
+                + ",CURRENT_TIMESTAMP"
+                + ",\"" + createBy + "\""
+                + ",CURRENT_TIMESTAMP"
+                + ",\"" + updateBy + "\""
+                + "," + divisionId
+                + ")"
+                ;
+
+        return runQueryNoResults(query);
+    }
+
+    /**
+     * Run a query with no result set.
+     * @param query Full query to un.
+     * @return Was query successful.
+     */
+    private static Boolean runQueryNoResults(String query){
+        Statement statement = null;
+
+        try{
+            statement = conn.createStatement();
+            statement.execute(query);
+            return true;
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+            return false;
+        } finally {
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+    }
+
+    /**
      * Close the connection to the database.
      */
     public static void close() {
