@@ -1,7 +1,6 @@
 package com.nelsonaraujo.wguscheduler.Controller;
 
-import com.nelsonaraujo.wguscheduler.Model.Customers;
-import com.nelsonaraujo.wguscheduler.Model.Datasource;
+import com.nelsonaraujo.wguscheduler.Model.*;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -9,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -45,6 +45,9 @@ public class CustomersController {
         addCustomerStage.setTitle("Add Customer");
         addCustomerStage.setResizable(false);
         addCustomerStage.showAndWait();
+
+        customersTblView.setItems(Customers.getCustomersOL());
+        customersTblView.refresh();
     }
 
     @FXML
@@ -66,5 +69,24 @@ public class CustomersController {
     protected void onExitBtnClick(){
         Datasource.close();
         Platform.exit();
+    }
+
+    @FXML
+    private void deleteBtnAction(){
+        try{
+            Customer selectedCustomer = (Customer) customersTblView.getSelectionModel().getSelectedItem();
+
+            if(selectedCustomer.hasAppointment()){
+                // todo: delete appointment first
+                System.out.println("Delete appointment first"); // todo: remove
+            } else {
+                if(selectedCustomer.deleteCustomer()){
+                    customersTblView.setItems(Customers.getCustomersOL());
+                    customersTblView.refresh();
+                }
+            }
+        } catch (Exception e) {
+            Logger.logAction(Logger.ActionType.ERROR,e.getMessage());
+        }
     }
 }

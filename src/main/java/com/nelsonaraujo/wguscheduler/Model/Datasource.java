@@ -377,6 +377,19 @@ public class Datasource {
         return runQueryNoResults(query);
     }
 
+    public static boolean deleteCustomer(int id){
+        // DELETE FROM customers WHERE Customer_ID = 4
+        String query = "DELETE FROM"
+                + " " + TABLE_CUSTOMERS
+                + " WHERE"
+                + " " + COLUMN_CUSTOMER_ID
+                + "=" + id
+                ;
+        Customer customer = Customers.getCustomer(id); // Get customer
+        Logger.logAction(Logger.ActionType.INFO,"Delete customer: \"" +customer.getName() + " (" + customer.getId() +")\"" );
+        return runQueryNoResults(query);
+    }
+
     /**
      * Run a query with no result set.
      * @param query Full query to un.
