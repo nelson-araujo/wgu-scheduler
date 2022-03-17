@@ -21,7 +21,7 @@ public class Customers {
      * @return
      */
     public static List<Customer> getCustomers(){
-        List<Customer> customerList = getCustomers();
+        List<Customer> customerList = Datasource.queryCustomers();
         return customerList;
     }
 
