@@ -377,8 +377,12 @@ public class Datasource {
         return runQueryNoResults(query);
     }
 
+    /**
+     * Delete a customer from the database.
+     * @param id
+     * @return
+     */
     public static boolean deleteCustomer(int id){
-        // DELETE FROM customers WHERE Customer_ID = 4
         String query = "DELETE FROM"
                 + " " + TABLE_CUSTOMERS
                 + " WHERE"
@@ -386,7 +390,23 @@ public class Datasource {
                 + "=" + id
                 ;
         Customer customer = Customers.getCustomer(id); // Get customer
-        Logger.logAction(Logger.ActionType.INFO,"Delete customer: \"" +customer.getName() + " (" + customer.getId() +")\"" );
+        Logger.logAction(Logger.ActionType.INFO,"Delete customer: \""
+                + customer.getName() + " (" + customer.getId() +")\"" );
+        return runQueryNoResults(query);
+    }
+
+    public static boolean deleteAppointment(int id){
+        String query = "DELETE FROM"
+                + " " + TABLE_APPOINTMENTS
+                + " WHERE"
+                + " " + COLUMN_APPOINTMENT_ID
+                + "=" + id
+                ;
+
+        Appointment appointment = Appointments.getAppointment(id); // Get appointment
+
+        Logger.logAction(Logger.ActionType.INFO,"Delete appointment " + id );
+
         return runQueryNoResults(query);
     }
 

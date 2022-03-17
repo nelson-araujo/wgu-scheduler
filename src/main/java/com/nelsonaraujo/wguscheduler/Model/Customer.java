@@ -124,11 +124,10 @@ public class Customer {
      */
     public Boolean hasAppointment(){
         for(Appointment appointment : Appointments.getAppointments()) {
-            if (appointment.getUserId() == this.getId()) {
+            if (appointment.getCustomerId() == this.getId()) {
                 return true;
             }
         }
-
         return false;
     }
 

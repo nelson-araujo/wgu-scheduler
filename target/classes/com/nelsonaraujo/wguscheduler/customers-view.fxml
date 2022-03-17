@@ -60,7 +60,7 @@
                                         <Insets right="15.0" />
                                     </HBox.margin>
                                 </Button>
-                                <Button fx:id="deleteBtn" onAction="#deleteBtnAction" layoutX="152.0" layoutY="10.0" mnemonicParsing="false" text="Delete">
+                                <Button fx:id="deleteBtn" layoutX="152.0" layoutY="10.0" mnemonicParsing="false" onAction="#deleteBtnAction" text="Delete">
                                     <HBox.margin>
                                         <Insets right="15.0" />
                                     </HBox.margin></Button>
@@ -71,7 +71,7 @@
                         </HBox>
                         <TableView fx:id="customersTblView" prefHeight="200.0">
                             <columns>
-                                <TableColumn minWidth="20.0" prefWidth="20.0" text="ID">
+                                <TableColumn minWidth="27.0" prefWidth="27.0" text="ID">
                                     <cellValueFactory>
                                         <PropertyValueFactory property="id" />
                                     </cellValueFactory>

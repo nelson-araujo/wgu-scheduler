@@ -77,8 +77,23 @@ public class CustomersController {
             Customer selectedCustomer = (Customer) customersTblView.getSelectionModel().getSelectedItem();
 
             if(selectedCustomer.hasAppointment()){
-                // todo: delete appointment first
-                System.out.println("Delete appointment first"); // todo: remove
+                int previousAppointmentId = -1;
+
+                while(selectedCustomer.hasAppointment() && previousAppointmentId != selectedCustomer.getId()){
+                    Appointment appointment = Appointments.getAppointment(selectedCustomer.getId());
+
+                    previousAppointmentId = appointment.getId();
+
+                    if(!appointment.deleteAppointment()){
+                        break; // Exit if cancelled or fail.
+                    }
+                }
+
+            // Delete customer
+            if(selectedCustomer.deleteCustomer()){
+                customersTblView.setItems(Customers.getCustomersOL());
+                customersTblView.refresh();
+            }
             } else {
                 if(selectedCustomer.deleteCustomer()){
                     customersTblView.setItems(Customers.getCustomersOL());
