@@ -110,11 +110,20 @@ public class CustomersController {
 
                     // Delete customer
                     if (selectedCustomer.deleteCustomer()) {
+
+
+
                         customersTblView.setItems(Customers.getCustomersOL());
                         customersTblView.refresh();
                     }
                 } else {
                     if (selectedCustomer.deleteCustomer()) {
+                        // Notify the user the customer has been deleted
+                        Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+                        alertMsg.setTitle("Customer deleted");
+                        alertMsg.setHeaderText("customer " + selectedCustomer.getName() + "Has been deleted");
+                        alertMsg.showAndWait();
+
                         customersTblView.setItems(Customers.getCustomersOL());
                         customersTblView.refresh();
                     }
