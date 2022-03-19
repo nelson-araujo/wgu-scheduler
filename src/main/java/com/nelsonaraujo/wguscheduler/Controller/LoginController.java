@@ -55,13 +55,23 @@ public class LoginController implements Initializable {
             Logger.setCurrUser(usernameTextField.getText().trim());
             Logger.setCurrServer(datasource.SERVER_NAME);
 
-            if (Datasource.open(usernameTextField.getText().trim(), passwordField.getText().trim())) {
-                Logger.logAction(Logger.ActionType.LOGIN, "User logged in");
+            if (Datasource.open(Logger.getDbUser(), Logger.getDbPass())) {
+                // Verify user credentials
+                if(Datasource.verifyUser(Logger.getCurrUser(), passwordField.getText().trim())){
+                    Logger.logAction(Logger.ActionType.LOGIN, "User logged in");
 
-                // Open main scene
-                wguScheduler.mainScene();
+                    // Open main scene
+                    wguScheduler.mainScene();
+
+                } else {
+                    Logger.logAction(Logger.ActionType.ERROR, "Invalid credentials: " +Logger.getCurrUser());
+                    loginErrorLabel.setText(Globals.rb_lang.getString("err_invalid_credentials"));
+                    Datasource.close();
+                }
             } else {
+                Logger.logAction(Logger.ActionType.ERROR, "Unable to connect: " +Logger.getCurrUser());
                 loginErrorLabel.setText(Globals.rb_lang.getString("err_unable_connect"));
+                Datasource.close();
             }
         }
     }

@@ -10,6 +10,8 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class Logger {
+    private static String dbUser = "sqluser";
+    private static String dbUserPass = "passw0rd!";
     private static String currUser;
     private static String currServer;
     private static LocalDate date;
@@ -17,6 +19,14 @@ public class Logger {
     private static TimeZone currUserTimezone = TimeZone.getDefault();
     public enum ActionType {LOGIN, INFO, WARNING, ERROR}
     private static String actionDescription;
+
+    public static String getDbUser(){
+        return dbUser;
+    }
+
+    public static String getDbPass(){
+        return dbUserPass;
+    }
 
     public static void logAction(ActionType actionType, String actionDescription){
         date = java.time.LocalDate.now(); // Get local date

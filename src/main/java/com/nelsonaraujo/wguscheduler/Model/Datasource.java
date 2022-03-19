@@ -58,6 +58,7 @@ public class Datasource {
     // user table variables
     private static final String TABLE_USERS = "users";
     private static final String COLUMN_USERS_NAME = "User_Name";
+    private static final String COLUMN_USERS_PASSWORD = "Password";
 
     // contacts table variables
     private static final String TABLE_CONTACTS = "contacts";
@@ -65,6 +66,72 @@ public class Datasource {
 
     // Database connection
     private static Connection conn;
+
+    /**
+     * Check if the user provided credentials match the databases credentials.
+     * @param user username provided by the user
+     * @param password password provided by the user
+     * @return Credentials match?
+     */
+    public static boolean verifyUser(String user, String password){
+        Statement statement = null;
+        ResultSet results = null;
+        String dbPassword = "";
+
+        String query = "SELECT"
+                + " " + COLUMN_USERS_PASSWORD
+                + " FROM " + TABLE_USERS
+                + " WHERE " + COLUMN_USERS_NAME + "=" + "'" + user + "'"
+                ;
+
+        // Get database password
+        try{
+            statement = conn.createStatement();
+            results = statement.executeQuery(query);
+
+            // Check if results is empty
+            if(results.next() == false) {
+                // No results found
+                return false;
+            } else {
+                dbPassword = results.getString(COLUMN_USERS_PASSWORD);
+            }
+
+
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+            return false;
+
+        } finally {
+            // Close result set
+            try{
+                if(results != null){
+                    results.close();
+                }
+            } catch(SQLException e){
+                System.out.println("ResultSet failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "ResultSet failed to close: " + e.getMessage()); // Log message
+            }
+
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+
+        // Check if password match
+        if(dbPassword.equals(password)){
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Query database for all appointments.
@@ -330,8 +397,8 @@ public class Datasource {
      */
     public static boolean open(String username, String password){
         try{
-            // TODO: username and password not the one on the client_schedule database
             conn = DriverManager.getConnection(CONNECTION_STRING, username, password);
+            Logger.logAction(Logger.ActionType.INFO, "Connection open to " + CONNECTION_STRING);
             return true;
 
         } catch(SQLException e){
