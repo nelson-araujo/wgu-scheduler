@@ -73,35 +73,42 @@ public class CustomersController {
 
     @FXML
     private void deleteBtnAction(){
-        try{
-            Customer selectedCustomer = (Customer) customersTblView.getSelectionModel().getSelectedItem();
+        if(customersTblView.getSelectionModel().getSelectedItem() != null) {
+            try {
+                Customer selectedCustomer = (Customer) customersTblView.getSelectionModel().getSelectedItem();
 
-            if(selectedCustomer.hasAppointment()){
-                int previousAppointmentId = -1;
+                if (selectedCustomer.hasAppointment()) {
+                    int previousAppointmentId = -1;
 
-                while(selectedCustomer.hasAppointment() && previousAppointmentId != selectedCustomer.getId()){
-                    Appointment appointment = Appointments.getAppointment(selectedCustomer.getId());
+                    while (selectedCustomer.hasAppointment() && previousAppointmentId != selectedCustomer.getId()) {
+                        Appointment appointment = Appointments.getAppointment(selectedCustomer.getId());
 
-                    previousAppointmentId = appointment.getId();
+                        previousAppointmentId = appointment.getId();
 
-                    if(!appointment.deleteAppointment()){
-                        break; // Exit if cancelled or fail.
+                        if (!appointment.deleteAppointment()) {
+                            break; // Exit if cancelled or fail.
+                        }
+                    }
+
+                    // Delete customer
+                    if (selectedCustomer.deleteCustomer()) {
+                        customersTblView.setItems(Customers.getCustomersOL());
+                        customersTblView.refresh();
+                    }
+                } else {
+                    if (selectedCustomer.deleteCustomer()) {
+                        customersTblView.setItems(Customers.getCustomersOL());
+                        customersTblView.refresh();
                     }
                 }
-
-            // Delete customer
-            if(selectedCustomer.deleteCustomer()){
-                customersTblView.setItems(Customers.getCustomersOL());
-                customersTblView.refresh();
+            } catch (Exception e) {
+                Logger.logAction(Logger.ActionType.ERROR, e.getMessage());
             }
-            } else {
-                if(selectedCustomer.deleteCustomer()){
-                    customersTblView.setItems(Customers.getCustomersOL());
-                    customersTblView.refresh();
-                }
-            }
-        } catch (Exception e) {
-            Logger.logAction(Logger.ActionType.ERROR,e.getMessage());
+        } else {
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("No customer selected");
+            alertMsg.setHeaderText("Select a customer to delete");
+            alertMsg.showAndWait();
         }
     }
 }
