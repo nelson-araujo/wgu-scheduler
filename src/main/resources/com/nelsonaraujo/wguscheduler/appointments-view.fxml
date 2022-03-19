@@ -66,7 +66,7 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></Label>
-                  <TableView fx:id="upcomingTblView" minWidth="-Infinity" prefHeight="50.0">
+                  <TableView fx:id="upcomingTblView" minWidth="-Infinity" prefHeight="100.0">
                      <columns>
                         <TableColumn minWidth="50.0" prefWidth="175.0" text="Start">
                            <cellValueFactory>
@@ -108,44 +108,80 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <RadioButton fx:id="weekRbtn" mnemonicParsing="false" text="Week">
+                        <RadioButton fx:id="weekRbtn1" layoutX="10.0" layoutY="10.0" minWidth="-Infinity" mnemonicParsing="false" prefHeight="24.0" prefWidth="65.0" text="All" />
+                        <RadioButton fx:id="weekRbtn" minWidth="-Infinity" mnemonicParsing="false" prefHeight="24.0" prefWidth="65.0" text="Week">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <RadioButton fx:id="monthRBtn" mnemonicParsing="false" text="Month">
+                        <RadioButton fx:id="monthRBtn" minWidth="-Infinity" mnemonicParsing="false" prefHeight="24.0" prefWidth="65.0" text="Month">
                            <HBox.margin>
                               <Insets right="50.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <TextField fx:id="searchTxtFld" promptText="Search">
+                        <TextField fx:id="searchTxtFld" prefHeight="24.0" prefWidth="200.0" promptText="Search">
                            <HBox.margin>
                               <Insets right="30.0" />
                            </HBox.margin>
                         </TextField>
-                        <ChoiceBox fx:id="timezoneChcBx" minWidth="150.0" />
+                        <ChoiceBox fx:id="timezoneChcBx" minWidth="150.0" prefHeight="24.0" prefWidth="200.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView fx:id="appointmentsTblView" prefHeight="200.0">
+                  <TableView fx:id="appointmentsTblView" prefHeight="250.0">
                     <columns>
-                      <TableColumn minWidth="50.0" prefWidth="175.0" text="Start">
+                      <TableColumn fx:id="id" maxWidth="1.7976931348623157E308" minWidth="27.0" prefWidth="-1.0" text="Id">
                          <cellValueFactory>
-                            <PropertyValueFactory property="start" />
+                            <PropertyValueFactory property="id" />
                          </cellValueFactory>
                       </TableColumn>
-                      <TableColumn minWidth="70.0" prefWidth="125.0" text="Type">
+                        <TableColumn fx:id="customerName" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="125.0" text="Customer">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="customerName" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="location" maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="70.0" text="Location">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="location" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="start" maxWidth="1.7976931348623157E308" minWidth="45.0" text="Start">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="start" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="end" maxWidth="1.7976931348623157E308" minWidth="35.0" text="End">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="end" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="type" maxWidth="1.7976931348623157E308" minWidth="40.0" text="Type">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="type" />
+                           </cellValueFactory>
+                        </TableColumn>
+                      <TableColumn fx:id="title" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0" text="Title">
                          <cellValueFactory>
-                            <PropertyValueFactory property="type" />
+                            <PropertyValueFactory property="title" />
                          </cellValueFactory>
                       </TableColumn>
-                      <TableColumn minWidth="121.0" prefWidth="130.0" text="Customer Name">
+                      <TableColumn fx:id="description" maxWidth="1.7976931348623157E308" minWidth="90.0" prefWidth="90.0" text="Description">
                          <cellValueFactory>
-                            <PropertyValueFactory property="customerName" />
+                            <PropertyValueFactory property="description" />
                          </cellValueFactory>
                       </TableColumn>
+                        <TableColumn fx:id="contactId" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="75.0" text="Contact">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="contactId" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="userId" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="50.0" text="User">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="userId" />
+                           </cellValueFactory>
+                        </TableColumn>
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" />
