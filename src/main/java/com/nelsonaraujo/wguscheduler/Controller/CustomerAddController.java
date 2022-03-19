@@ -28,8 +28,8 @@ public class CustomerAddController {
         countryChcBx.setItems(FXCollections.observableArrayList(Countries.getCountriesList()));
     }
 
-    /** Check if entered fields are valid.
-     *
+    /**
+     * Check if entered fields are valid.
      * @return true/false if fields are valid.
      */
     private Boolean isFieldsValid(){
@@ -95,7 +95,7 @@ public class CustomerAddController {
     }
 
     /**
-     * Verify user entered entries and add customer.
+     * Actions to be taken when the add button is clicked.
      */
     @FXML
     private void addBtnAction(){
@@ -108,6 +108,9 @@ public class CustomerAddController {
         }
     }
 
+    /**
+     * Action to be taken when the cancel button is clicked
+     */
     @FXML
     private void cancelBtnAction(){
         Stage stage= (Stage) cancelBtn.getScene().getWindow();
@@ -124,7 +127,7 @@ public class CustomerAddController {
     }
 
     /**
-     * Add a customer to the database.
+     * Add a customer.
      */
     @FXML
     private void addCustomer(){
@@ -133,9 +136,9 @@ public class CustomerAddController {
         String postalCode = postalCodeTxtFld.getText();
         String phone = phoneTxtFld.getText();
         Timestamp createDate = Timestamp.valueOf(LocalDateTime.now()); // Todo: Convert to UTC
-        String createBy = "temp"; // Todo: Populate
+        String createBy = Logger.getCurrUser();
         Timestamp updateDate = Timestamp.valueOf(LocalDateTime.now()); // Todo: Convert to UTC
-        String updateBy = "temp"; // Todo: Populate
+        String updateBy = Logger.getCurrUser();
         Integer divisionId = null ;
         String countrySelected = countryChcBx.getValue().toString();
         String divisionSelected = stateProvinceChcBx.getValue().toString();

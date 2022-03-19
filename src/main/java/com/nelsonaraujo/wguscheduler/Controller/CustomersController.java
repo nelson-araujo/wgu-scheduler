@@ -8,12 +8,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 
 public class CustomersController {
@@ -46,23 +46,41 @@ public class CustomersController {
         addCustomerStage.setResizable(false);
         addCustomerStage.showAndWait();
 
+        // Refresh customer view
         customersTblView.setItems(Customers.getCustomersOL());
         customersTblView.refresh();
     }
 
     @FXML
     public void customerUpdateBtnOnAction(ActionEvent event) throws IOException{
-        Stage updateCustomerStage = new Stage();
+        if(customersTblView.getSelectionModel().getSelectedItem() == null) {
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("No customer selected");
+            alertMsg.setHeaderText("Select a customer to update");
+            alertMsg.showAndWait();
+        } else {
+            Stage updateCustomerStage = new Stage();
 
-        updateCustomerStage.initModality(Modality.APPLICATION_MODAL); // Stage must be closed to interact with main program
-        FXMLLoader updateCustomerViewLoader = new FXMLLoader(getClass().getResource("/com/nelsonaraujo/wguscheduler/customer-update-view.fxml"));
+            updateCustomerStage.initModality(Modality.APPLICATION_MODAL); // Stage must be closed to interact with main program
+            FXMLLoader updateCustomerViewLoader = new FXMLLoader(getClass().getResource("/com/nelsonaraujo/wguscheduler/customer-update-view.fxml"));
 
-        Parent root = updateCustomerViewLoader.load();
-        Scene scene = new Scene(root);
-        updateCustomerStage.setScene(scene);
-        updateCustomerStage.setTitle("Update Customer");
-        updateCustomerStage.setResizable(false);
-        updateCustomerStage.showAndWait();
+            // Pass selected customer
+            Customer selectedCustomer = (Customer) customersTblView.getSelectionModel().getSelectedItem();
+            CustomerUpdateController customerUpdateController = new CustomerUpdateController(selectedCustomer);
+            updateCustomerViewLoader.setController(customerUpdateController);
+
+            // Open stage
+            Parent root = updateCustomerViewLoader.load();
+            Scene scene = new Scene(root);
+            updateCustomerStage.setScene(scene);
+            updateCustomerStage.setTitle("Update Customer");
+            updateCustomerStage.setResizable(false);
+            updateCustomerStage.showAndWait();
+
+            // Refresh customer view
+            customersTblView.setItems(Customers.getCustomersOL());
+            customersTblView.refresh();
+        }
     }
     
     @FXML

@@ -20,7 +20,7 @@
             <HBox spacing="1.0">
                <children>
                   <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Name: " />
-                  <TextField fx:id="nameTxtFld" style="-fx-border-color: #d3d3d3;">
+                  <TextField fx:id="nameTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin></TextField>
@@ -41,7 +41,7 @@
             <HBox layoutX="10.0" layoutY="44.0">
                <children>
                   <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Address: " />
-                  <TextField fx:id="addressTxtFld" style="-fx-border-color: #d3d3d3;" />
+                  <TextField fx:id="addressTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -50,7 +50,7 @@
             <HBox layoutX="10.0" layoutY="78.0">
                <children>
                   <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Postal Code: " />
-                  <TextField fx:id="postalCodeTxtFld" style="-fx-border-color: #d3d3d3;" />
+                  <TextField fx:id="postalCodeTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

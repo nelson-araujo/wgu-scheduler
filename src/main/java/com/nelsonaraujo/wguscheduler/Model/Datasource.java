@@ -347,13 +347,13 @@ public class Datasource {
 
     /**
      * Add a customer to the database.
-     * @param name
-     * @param address
-     * @param postalCode
-     * @param phone
-     * @param createBy
-     * @param updateBy
-     * @param divisionId
+     * @param name Customer name
+     * @param address customer address
+     * @param postalCode Customer postal code
+     * @param phone Customer phone number
+     * @param createBy User who created the record
+     * @param updateBy User who updated the record, same as created by
+     * @param divisionId Division id
      * @return Add of customer successful.
      */
     public static boolean addCustomer(String name, String address, String postalCode,
@@ -373,14 +373,43 @@ public class Datasource {
                 + "," + divisionId
                 + ")"
                 ;
-        Logger.logAction(Logger.ActionType.INFO,"Add customer: " + name + ", " + phone );
+        Logger.logAction(Logger.ActionType.INFO,"Add customer \"" + name + "\", with phone number \"" + phone + "\"");
+        return runQueryNoResults(query);
+    }
+
+    /**
+     * Update customer on the database.
+     * @param customerId Customer id
+     * @param name Customer name
+     * @param address customer address
+     * @param postalCode customer postal code
+     * @param phone customer phone number
+     * @param updateBy User who updated record
+     * @param divisionId Division id
+     * @return Was query successful.
+     */
+    public static boolean updateCustomer(Integer customerId, String name, String address, String postalCode,
+                                      String phone, String updateBy, Integer divisionId){
+        String query = "UPDATE"
+                + " " + TABLE_CUSTOMERS
+                + " SET"
+                + " " + COLUMN_CUSTOMER_NAME + "=\""+ name + "\""
+                + "," + COLUMN_CUSTOMER_ADDRESS + "=\"" + address + "\""
+                + "," + COLUMN_CUSTOMER_POSTAL_CODE + "=\"" + postalCode + "\""
+                + "," + COLUMN_CUSTOMER_PHONE + "=\"" + phone + "\""
+                + "," + COLUMN_CUSTOMER_LAST_UPDATE + "=" + "CURRENT_TIMESTAMP"
+                + "," + COLUMN_CUSTOMER_LAST_UPDATE_BY + "=\"" + updateBy + "\""
+                + "," + COLUMN_CUSTOMER_DIVISION_ID + "=" + divisionId
+                + " WHERE " + COLUMN_CUSTOMER_ID + "=" + customerId
+                ;
+        Logger.logAction(Logger.ActionType.INFO,"Update customer \"" + name + " (" + customerId +")\"" );
         return runQueryNoResults(query);
     }
 
     /**
      * Delete a customer from the database.
-     * @param id
-     * @return
+     * @param id Customer id.
+     * @return Was query successful.
      */
     public static boolean deleteCustomer(int id){
         String query = "DELETE FROM"
@@ -390,11 +419,16 @@ public class Datasource {
                 + "=" + id
                 ;
         Customer customer = Customers.getCustomer(id); // Get customer
-        Logger.logAction(Logger.ActionType.INFO,"Delete customer: \""
+        Logger.logAction(Logger.ActionType.INFO,"Delete customer \""
                 + customer.getName() + " (" + customer.getId() +")\"" );
         return runQueryNoResults(query);
     }
 
+    /**
+     * Delete appointment.
+     * @param id Appointment id.
+     * @return Was query successful.
+     */
     public static boolean deleteAppointment(int id){
         String query = "DELETE FROM"
                 + " " + TABLE_APPOINTMENTS
@@ -405,7 +439,7 @@ public class Datasource {
 
         Appointment appointment = Appointments.getAppointment(id); // Get appointment
 
-        Logger.logAction(Logger.ActionType.INFO,"Delete appointment " + id );
+        Logger.logAction(Logger.ActionType.INFO,"Delete appointment id " + id );
 
         return runQueryNoResults(query);
     }
