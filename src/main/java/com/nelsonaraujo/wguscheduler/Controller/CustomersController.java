@@ -19,17 +19,24 @@ import java.io.IOException;
 public class CustomersController {
     @FXML ImageView appointmentsIcon;
     @FXML ImageView customersIcon;
+    @FXML ImageView reportsIcon;
     @FXML TableView customersTblView;
 
     public void initialize(){
         customersTblView.setItems(Customers.getCustomersOL());
         Tooltip.install(appointmentsIcon, new Tooltip("Appointments"));
         Tooltip.install(customersIcon, new Tooltip("Customers"));
+        Tooltip.install(reportsIcon, new Tooltip("Reports"));
     }
 
     @FXML
     protected void onAppointmentsIconClick() throws IOException {
         wguScheduler.mainScene();
+    }
+
+    @FXML
+    protected void onReportsIconClick() throws IOException {
+        wguScheduler.reportsScene();
     }
     
     @FXML

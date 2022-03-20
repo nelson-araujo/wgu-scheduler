@@ -60,6 +60,21 @@ public class wguScheduler extends Application {
         stage.setMinHeight(stage.getHeight());
     }
 
+    //
+    @FXML
+    public static void reportsScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(wguScheduler.class.getResource("reports-view.fxml"));
+        Scene sceneCustomers = new Scene(fxmlLoader.load());
+
+        stage.setTitle("Scheduler" + " - " +Logger.getCurrUser() + "@" +Logger.getCurrServer());
+        stage.setScene(sceneCustomers);
+        stage.show();
+
+        // Set stage minimum size to the opening size.
+        stage.setMinWidth(stage.getWidth());
+        stage.setMinHeight(stage.getHeight());
+    }
+
     public static void main(String[] args) {
         launch();
     }
