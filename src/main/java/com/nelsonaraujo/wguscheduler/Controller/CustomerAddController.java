@@ -24,6 +24,9 @@ public class CustomerAddController {
     @FXML ChoiceBox countryChcBx;
     @FXML ChoiceBox stateProvinceChcBx;
 
+    /**
+     * Initialize the scene.
+     */
     public void initialize(){
         countryChcBx.setItems(FXCollections.observableArrayList(Countries.getCountriesList()));
     }

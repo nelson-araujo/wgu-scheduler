@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Countries {
-//    private static List<Country> countries = new ArrayList<>();
     private static List<Country> countries = new ArrayList<>();
 
     public static List<Country> getCountries() {

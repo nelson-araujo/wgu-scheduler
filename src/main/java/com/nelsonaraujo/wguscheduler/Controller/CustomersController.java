@@ -22,6 +22,9 @@ public class CustomersController {
     @FXML ImageView reportsIcon;
     @FXML TableView customersTblView;
 
+    /**
+     * Initialize the scene
+     */
     public void initialize(){
         customersTblView.setItems(Customers.getCustomersOL());
         Tooltip.install(appointmentsIcon, new Tooltip("Appointments"));
@@ -29,16 +32,29 @@ public class CustomersController {
         Tooltip.install(reportsIcon, new Tooltip("Reports"));
     }
 
+    /**
+     * Process when the appointments icon is clicked.
+     * @throws IOException Operation fails
+     */
     @FXML
     protected void onAppointmentsIconClick() throws IOException {
         wguScheduler.mainScene();
     }
 
+    /**
+     * Process when the reports icon is clicked.
+     * @throws IOException Operation fails
+     */
     @FXML
     protected void onReportsIconClick() throws IOException {
         wguScheduler.reportsScene();
     }
-    
+
+    /**
+     * Process when the add button is clicked.
+     * @param event Events from scene
+     * @throws IOException Operation fails
+     */
     @FXML
     public void customerAddBtnOnAction(ActionEvent event) throws IOException{
         Stage addCustomerStage = new Stage();
@@ -58,6 +74,11 @@ public class CustomersController {
         customersTblView.refresh();
     }
 
+    /**
+     * Process when the update button is clicked.
+     * @param event Events from scene
+     * @throws IOException Operation fails
+     */
     @FXML
     public void customerUpdateBtnOnAction(ActionEvent event) throws IOException{
         if(customersTblView.getSelectionModel().getSelectedItem() == null) {
@@ -89,13 +110,19 @@ public class CustomersController {
             customersTblView.refresh();
         }
     }
-    
+
+    /**
+     * Process when the exit button is clicked
+     */
     @FXML
     protected void onExitBtnClick(){
         Datasource.close();
         Platform.exit();
     }
 
+    /**
+     * Process when the delete button is clicked.
+     */
     @FXML
     private void deleteBtnAction(){
         if(customersTblView.getSelectionModel().getSelectedItem() != null) {

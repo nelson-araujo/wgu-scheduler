@@ -121,7 +121,6 @@ public class Logger {
         Logger.currUser = currUser;
     }
 
-
     public static String getCurrServer() {
         return currServer;
     }
@@ -129,7 +128,6 @@ public class Logger {
     public static void setCurrServer(String currServer) {
         Logger.currServer = currServer;
     }
-
 
     public static TimeZone getCurrUserTimezone() {
         return currUserTimezone;

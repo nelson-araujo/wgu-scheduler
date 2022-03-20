@@ -25,6 +25,11 @@ public class LoginController implements Initializable {
     @FXML private Button loginBtn;
     @FXML private Button closeBtn;
 
+    /**
+     * Change the scene defaults.
+     * @param url
+     * @param rb Language resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         serverNameLabel.setText(Datasource.SERVER_NAME); // Set server name
@@ -41,6 +46,10 @@ public class LoginController implements Initializable {
         closeBtn.setText(rb.getString("btn_close"));
     }
 
+    /**
+     * Process when the login button is clicked.
+     * @throws IOException Operation fails
+     */
     @FXML
     protected void onLoginButtonClick() throws IOException {
         Datasource datasource = new Datasource();
@@ -76,6 +85,9 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Process when the close button is clicked.
+     */
     @FXML
     protected void onCloseButtonClick(){
         Datasource.close();

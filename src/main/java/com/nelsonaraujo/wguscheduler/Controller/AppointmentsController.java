@@ -19,6 +19,9 @@ public class AppointmentsController {
     @FXML ImageView customersIcon;
     @FXML ImageView reportsIcon;
 
+    /**
+     * Initialize the scene.
+     */
     public void initialize(){
         appointmentsTblView.setItems(Appointments.getAppointmentsOL());
         Tooltip.install(appointmentsIcon, new Tooltip("Appointments"));
@@ -26,16 +29,27 @@ public class AppointmentsController {
         Tooltip.install(reportsIcon, new Tooltip("Reports"));
     }
 
+    /**
+     * Process when the customers icon is clicked.
+     * @throws IOException Operation fails
+     */
     @FXML
     protected void onCustomersIconClick() throws IOException {
         wguScheduler.customersScene();
     }
 
+    /**
+     * Process when the reports icon is clicked.
+     * @throws IOException Operation fails
+     */
     @FXML
     protected void onReportsIconClick() throws IOException {
         wguScheduler.reportsScene();
     }
 
+    /**
+     * Process when the exit button is clicked.
+     */
     @FXML
     protected void onExitBtnClick(){
         Datasource.close();

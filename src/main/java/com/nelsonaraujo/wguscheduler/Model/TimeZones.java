@@ -46,6 +46,10 @@ public class TimeZones {
         return Timestamp.valueOf(LocalDateTime.now());
     }
 
+    /**
+     * Get the UTC time.
+     * @return UTC time
+     */
     public static Timestamp getUtcTime(){
         System.out.println(Instant.now());
         return null;
