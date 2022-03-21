@@ -1,12 +1,11 @@
 package com.nelsonaraujo.wguscheduler.Controller;
 
-import com.nelsonaraujo.wguscheduler.Model.Appointment;
-import com.nelsonaraujo.wguscheduler.Model.Appointments;
-import com.nelsonaraujo.wguscheduler.Model.Countries;
-import com.nelsonaraujo.wguscheduler.Model.Datasource;
+import com.nelsonaraujo.wguscheduler.Model.*;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -18,6 +17,7 @@ public class AppointmentsController {
     @FXML ImageView appointmentsIcon;
     @FXML ImageView customersIcon;
     @FXML ImageView reportsIcon;
+    @FXML ChoiceBox timezoneChcBx;
 
     /**
      * Initialize the scene.
@@ -27,6 +27,13 @@ public class AppointmentsController {
         Tooltip.install(appointmentsIcon, new Tooltip("Appointments"));
         Tooltip.install(customersIcon, new Tooltip("Customers"));
         Tooltip.install(reportsIcon, new Tooltip("Reports"));
+
+        // Populate timezone drop down and auto select the local timezone
+        timezoneChcBx.setItems(FXCollections.observableArrayList(TimeZones.getFormattedTimeZones()));
+        timezoneChcBx.setValue(TimeZones.getSystemTimeZoneFormatted());
+
+
+
     }
 
     /**

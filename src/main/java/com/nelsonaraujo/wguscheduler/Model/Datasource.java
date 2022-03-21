@@ -433,9 +433,9 @@ public class Datasource {
                 + ",\"" + address + "\""
                 + ",\"" + postalCode + "\""
                 + ",\"" + phone + "\""
-                + ",CURRENT_TIMESTAMP"
+                + ",UTC_TIMESTAMP()"
                 + ",\"" + createBy + "\""
-                + ",CURRENT_TIMESTAMP"
+                + ",UTC_TIMESTAMP()"
                 + ",\"" + updateBy + "\""
                 + "," + divisionId
                 + ")"
@@ -464,7 +464,7 @@ public class Datasource {
                 + "," + COLUMN_CUSTOMER_ADDRESS + "=\"" + address + "\""
                 + "," + COLUMN_CUSTOMER_POSTAL_CODE + "=\"" + postalCode + "\""
                 + "," + COLUMN_CUSTOMER_PHONE + "=\"" + phone + "\""
-                + "," + COLUMN_CUSTOMER_LAST_UPDATE + "=" + "CURRENT_TIMESTAMP"
+                + "," + COLUMN_CUSTOMER_LAST_UPDATE + "=" + "UTC_TIMESTAMP()"
                 + "," + COLUMN_CUSTOMER_LAST_UPDATE_BY + "=\"" + updateBy + "\""
                 + "," + COLUMN_CUSTOMER_DIVISION_ID + "=" + divisionId
                 + " WHERE " + COLUMN_CUSTOMER_ID + "=" + customerId

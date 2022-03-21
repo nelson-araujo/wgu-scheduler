@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.TimeZone;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -15,10 +17,9 @@ public class Logger {
     private static String currUser;
     private static String currServer;
     private static LocalDate date;
-    private static LocalTime time;
+    private static String time;
     private static TimeZone currUserTimezone = TimeZone.getDefault();
     public enum ActionType {LOGIN, INFO, WARNING, ERROR}
-    private static String actionDescription;
 
     public static String getDbUser(){
         return dbUser;
@@ -30,7 +31,7 @@ public class Logger {
 
     public static void logAction(ActionType actionType, String actionDescription){
         date = java.time.LocalDate.now(); // Get local date
-        time = java.time.LocalTime.now(); // Get local current time
+        time = LocalDateTime.now().format(DateTimeFormatter.ofPattern(TimeZones.TIME_FORMAT)); // Get local current time
 
         // Create the log files
         if(createLogFile("login_activity") == FALSE || createLogFile("scheduler_log") == FALSE){
