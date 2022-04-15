@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nelsonaraujo.wguscheduler.Controller.AppointmentAddController">
+   <children>
+      <Label text="Add Appointment">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox>
+         <children>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox spacing="1.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Customer: " />
+                        <ChoiceBox fx:id="customerChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Type: " />
+                        <TextField fx:id="typeTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="44.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Title: " />
+                        <TextField fx:id="titleTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="78.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Description: " />
+                        <TextArea fx:id="descriptionTxtArea" prefHeight="72.0" prefWidth="173.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Location: " />
+                        <ChoiceBox fx:id="locationChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Contact: " />
+                        <ChoiceBox fx:id="contactChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Date: " />
+                        <TextField fx:id="dateTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="46.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Time Zone: " />
+                        <ChoiceBox fx:id="timezoneChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="82.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Start Time: " />
+                        <TextField fx:id="startTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="154.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="End Time: " />
+                        <TextField fx:id="endTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addBtnAction" text="Add" />
+            <Button fx:id="cancelBtn" layoutX="210.0" layoutY="18.0" mnemonicParsing="false" onAction="#cancelBtnAction" text="Cancel" />
+        </buttons>
+      </ButtonBar>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

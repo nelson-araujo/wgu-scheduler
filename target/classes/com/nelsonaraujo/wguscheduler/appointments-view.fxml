@@ -102,7 +102,7 @@
                   </TableView>
                   <HBox>
                      <children>
-                        <Button fx:id="addBtn" mnemonicParsing="false" text="Add">
+                        <Button fx:id="addBtn" onAction="#appointmentAddBtnOnAction" mnemonicParsing="false" text="Add">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
