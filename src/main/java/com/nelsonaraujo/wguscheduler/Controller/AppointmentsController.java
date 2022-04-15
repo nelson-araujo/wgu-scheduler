@@ -29,7 +29,7 @@ public class AppointmentsController {
      * Initialize the scene.
      */
     public void initialize(){
-        appointmentsTblView.setItems(Appointments.getAppointmentsOL());
+        // Create and apply tooltips
         Tooltip.install(appointmentsIcon, new Tooltip("Appointments"));
         Tooltip.install(customersIcon, new Tooltip("Customers"));
         Tooltip.install(reportsIcon, new Tooltip("Reports"));
@@ -40,6 +40,9 @@ public class AppointmentsController {
 
 
 
+
+        // Populate list
+        appointmentsTblView.setItems(Appointments.getAppointmentsOL());
     }
 
     /**

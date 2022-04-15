@@ -182,14 +182,14 @@
                             <PropertyValueFactory property="description" />
                          </cellValueFactory>
                       </TableColumn>
-                        <TableColumn fx:id="contactId" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="75.0" text="Contact">
+                        <TableColumn fx:id="contactName" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="80.0" text="Contact">
                            <cellValueFactory>
-                              <PropertyValueFactory property="contactId" />
+                              <PropertyValueFactory property="contactName" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="userId" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="50.0" text="User">
+                        <TableColumn fx:id="userName" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="50.0" text="User">
                            <cellValueFactory>
-                              <PropertyValueFactory property="userId" />
+                              <PropertyValueFactory property="userName" />
                            </cellValueFactory>
                         </TableColumn>
                     </columns>

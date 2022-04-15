@@ -138,9 +138,7 @@ public class CustomerAddController {
         String address = addressTxtFld.getText();
         String postalCode = postalCodeTxtFld.getText();
         String phone = phoneTxtFld.getText();
-        Timestamp createDate = Timestamp.valueOf(LocalDateTime.now()); // Todo: Convert to UTC
         String createBy = Logger.getCurrUser();
-        Timestamp updateDate = Timestamp.valueOf(LocalDateTime.now()); // Todo: Convert to UTC
         String updateBy = Logger.getCurrUser();
         Integer divisionId = null ;
         String countrySelected = countryChcBx.getValue().toString();

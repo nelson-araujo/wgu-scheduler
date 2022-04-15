@@ -145,7 +145,6 @@ public class CustomerUpdateController {
         String address = addressTxtFld.getText();
         String postalCode = postalCodeTxtFld.getText();
         String phone = phoneTxtFld.getText();
-        Timestamp updateDate = Timestamp.valueOf(LocalDateTime.now()); // Todo: Convert to UTC
         String updateBy = Logger.getCurrUser();
         Integer divisionId = null ;
         String countrySelected = countryChcBx.getValue().toString();

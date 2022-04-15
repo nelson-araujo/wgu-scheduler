@@ -22,6 +22,8 @@ public class Appointment {
     private int userId;
     private int contactId;
     private String customerName;
+    private String contactName;
+    private String userName;
 
     public int getId() {
         return id;
@@ -141,6 +143,22 @@ public class Appointment {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     /**

@@ -57,12 +57,14 @@ public class Datasource {
 
     // user table variables
     private static final String TABLE_USERS = "users";
-    private static final String COLUMN_USERS_NAME = "User_Name";
-    private static final String COLUMN_USERS_PASSWORD = "Password";
+    private static final String COLUMN_USER_ID = "User_ID";
+    private static final String COLUMN_USER_NAME = "User_Name";
+    private static final String COLUMN_USER_PASSWORD = "Password";
 
     // contacts table variables
     private static final String TABLE_CONTACTS = "contacts";
-    private static final String COLUMN_CONTACTS_NAME = "Contact_Name";
+    private static final String COLUMN_CONTACT_ID = "Contact_ID";
+    private static final String COLUMN_CONTACT_NAME = "Contact_Name";
 
     // Database connection
     private static Connection conn;
@@ -79,9 +81,9 @@ public class Datasource {
         String dbPassword = "";
 
         String query = "SELECT"
-                + " " + COLUMN_USERS_PASSWORD
+                + " " + COLUMN_USER_PASSWORD
                 + " FROM " + TABLE_USERS
-                + " WHERE " + COLUMN_USERS_NAME + "=" + "'" + user + "'"
+                + " WHERE " + COLUMN_USER_NAME + "=" + "'" + user + "'"
                 ;
 
         // Get database password
@@ -94,7 +96,7 @@ public class Datasource {
                 // No results found
                 return false;
             } else {
-                dbPassword = results.getString(COLUMN_USERS_PASSWORD);
+                dbPassword = results.getString(COLUMN_USER_PASSWORD);
             }
 
 
@@ -158,10 +160,18 @@ public class Datasource {
                             + "," + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_USER_ID
                             + "," + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CONTACT_ID
                             + "," + TABLE_CUSTOMERS + "." + COLUMN_CUSTOMER_NAME
+                            + "," + TABLE_CONTACTS + "." + COLUMN_CONTACT_NAME
+                            + "," + TABLE_USERS + "." + COLUMN_USER_NAME
                         + " FROM " + TABLE_APPOINTMENTS
                         + " JOIN " + TABLE_CUSTOMERS
                             + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CUSTOMER_ID
                             + " = " + TABLE_CUSTOMERS +"." + COLUMN_CUSTOMER_ID
+                        + " JOIN " + TABLE_CONTACTS
+                        + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CONTACT_ID
+                        + " = " + TABLE_CONTACTS +"." + COLUMN_CONTACT_ID
+                        + " JOIN " + TABLE_USERS
+                        + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_USER_ID
+                        + " = " + TABLE_USERS +"." + COLUMN_USER_ID
         ;
 
         try{
@@ -189,6 +199,8 @@ public class Datasource {
                 appointment.setUserId(results.getInt(COLUMN_APPOINTMENT_USER_ID));
                 appointment.setContactId(results.getInt(COLUMN_APPOINTMENT_CONTACT_ID));
                 appointment.setCustomerName((results.getString(COLUMN_CUSTOMER_NAME)));
+                appointment.setContactName(results.getString(COLUMN_CONTACT_NAME));
+                appointment.setUserName(results.getString(COLUMN_USER_NAME));
 
                 appointments.add(appointment);
             }
