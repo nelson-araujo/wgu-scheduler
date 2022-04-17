@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -129,7 +128,7 @@ public class CustomersController {
             try {
                 Customer selectedCustomer = (Customer) customersTblView.getSelectionModel().getSelectedItem();
 
-                if (selectedCustomer.hasAppointment()) {
+                if (selectedCustomer.hasAppointment()) {/**/
                     int previousAppointmentId = -1;
 
                     while (selectedCustomer.hasAppointment() && previousAppointmentId != selectedCustomer.getId()) {

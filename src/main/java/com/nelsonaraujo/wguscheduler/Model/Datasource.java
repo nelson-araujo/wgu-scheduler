@@ -4,7 +4,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 public class Datasource {
     // JDBC URL
@@ -178,6 +180,8 @@ public class Datasource {
             statement = conn.createStatement();
             results = statement.executeQuery(query);
 
+            Calendar calUtcTimezone = Calendar.getInstance(TimeZone.getTimeZone("GMT")); // Use to set timezone to UTC
+
             List<Appointment> appointments = new ArrayList<>();
 
             while(results.next()){
@@ -188,12 +192,11 @@ public class Datasource {
                 appointment.setDescription(results.getString(COLUMN_APPOINTMENT_DESCRIPTION));
                 appointment.setLocation(results.getString(COLUMN_APPOINTMENT_LOCATION));
                 appointment.setType(results.getString(COLUMN_APPOINTMENT_TYPE));
-                appointment.setStart(results.getTimestamp(COLUMN_APPOINTMENT_START));
-                appointment.setEnd((results.getTimestamp(COLUMN_APPOINTMENT_END)));
-                appointment.setStart(results.getTimestamp(COLUMN_APPOINTMENT_CREATE_DATE));
-                appointment.setCreateDate(results.getTimestamp(COLUMN_APPOINTMENT_CREATE_DATE));
+                appointment.setStart(results.getTimestamp(COLUMN_APPOINTMENT_START,calUtcTimezone));
+                appointment.setEnd((results.getTimestamp(COLUMN_APPOINTMENT_END,calUtcTimezone)));
+                appointment.setCreateDate(results.getTimestamp(COLUMN_APPOINTMENT_CREATE_DATE,calUtcTimezone));
                 appointment.setCreateBy(results.getString(COLUMN_APPOINTMENT_CREATE_BY));
-                appointment.setLastUpdate(results.getTimestamp(COLUMN_APPOINTMENT_LAST_UPDATE));
+                appointment.setLastUpdate(results.getTimestamp(COLUMN_APPOINTMENT_LAST_UPDATE,calUtcTimezone));
                 appointment.setLastUpdateBy(results.getString(COLUMN_APPOINTMENT_LAST_UPDATE_BY));
                 appointment.setCustomerId(results.getInt(COLUMN_APPOINTMENT_CUSTOMER_ID));
                 appointment.setUserId(results.getInt(COLUMN_APPOINTMENT_USER_ID));

@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.TextStyle;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TimeZones {
     public final static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -37,12 +39,34 @@ public class TimeZones {
         return Timestamp.valueOf(utcTime);
     }
 
-    public static Timestamp convertTime(Timestamp originalTimestamp, String zoneIdName){
-        ZoneId zoneId = ZoneId.of(zoneIdName); // Convert zone id name to ZoneId
+    /**
+     * Extract the zone id in the formatted string between [ ]
+     * @param formattedTimeZone
+     * @return zone id
+     */
+    public static String getZoneIdFromFormattedTimeZone(String formattedTimeZone){
+        Pattern zoneIdPattern = Pattern.compile("\\[(.*?)\\]"); // zoneId between [ ]
+        Matcher matchedPattern = zoneIdPattern.matcher(formattedTimeZone);
 
-        ZonedDateTime utcDateTimeZdt = originalTimestamp.toInstant().atZone(zoneId);
+        if(matchedPattern.find()){
+            return matchedPattern.group(1); // Return zone id
+        }
 
-        return Timestamp.valueOf(utcDateTimeZdt.toLocalDateTime());
+        return null;
+    }
+
+    /**
+     * Convert UTC Timestamp to specified time zone.
+     * @param utcTimestamp UTC Timestamp.
+     * @param zoneNameToConvertTo Time zone to update Timestamp to.
+     * @return Timestamp converted to the provided time zone.
+     */
+    public static Timestamp convertUtcTime(Timestamp utcTimestamp, String zoneNameToConvertTo){
+        ZoneId zoneIdToConvertTo = ZoneId.of(zoneNameToConvertTo); // Convert zone id string to ZoneId
+
+        ZonedDateTime convertedDateTimeZdt = utcTimestamp.toInstant().atZone(zoneIdToConvertTo);
+
+        return Timestamp.valueOf(convertedDateTimeZdt.toLocalDateTime());
     }
 
     /**

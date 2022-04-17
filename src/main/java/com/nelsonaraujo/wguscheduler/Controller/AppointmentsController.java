@@ -15,7 +15,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class AppointmentsController {
@@ -38,11 +37,9 @@ public class AppointmentsController {
         timezoneChcBx.setItems(FXCollections.observableArrayList(TimeZones.getFormattedTimeZones()));
         timezoneChcBx.setValue(TimeZones.getSystemTimeZoneFormatted());
 
-
-
-
         // Populate list
-        appointmentsTblView.setItems(Appointments.getAppointmentsOL());
+        String selectedTimeZone = timezoneChcBx.getValue().toString();
+        appointmentsTblView.setItems(Appointments.getAppointmentsOL(selectedTimeZone));
     }
 
     /**
@@ -95,5 +92,13 @@ public class AppointmentsController {
     protected void onExitBtnClick(){
         Datasource.close();
         Platform.exit();
+    }
+
+    @FXML
+    private void onTimeZoneChcBxAction(){
+        String selectedTimeZone = timezoneChcBx.getValue().toString();
+
+        appointmentsTblView.setItems(Appointments.getAppointmentsOL(selectedTimeZone));
+
     }
 }
