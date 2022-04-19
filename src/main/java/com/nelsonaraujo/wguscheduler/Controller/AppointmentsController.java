@@ -4,6 +4,7 @@ import com.nelsonaraujo.wguscheduler.Model.*;
 import com.nelsonaraujo.wguscheduler.wguScheduler;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +17,17 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class AppointmentsController {
     @FXML TableView<Appointment> appointmentsTblView;
+    @FXML TableView<Appointment> upcomingAppointmentsTblView;
     @FXML ImageView appointmentsIcon;
     @FXML ImageView customersIcon;
     @FXML ImageView reportsIcon;
@@ -37,9 +46,35 @@ public class AppointmentsController {
         timezoneChcBx.setItems(FXCollections.observableArrayList(TimeZones.getFormattedTimeZones()));
         timezoneChcBx.setValue(TimeZones.getSystemTimeZoneFormatted());
 
-        // Populate list
+        // Get appointments
         String selectedTimeZone = timezoneChcBx.getValue().toString();
-        appointmentsTblView.setItems(Appointments.getAppointmentsOL(selectedTimeZone));
+        ObservableList<Appointment> appointmentsOL= Appointments.getAppointmentsOL(selectedTimeZone);
+
+        // Populate tables
+        upcomingAppointmentsTblView.setItems(getUpcomingAppointments(appointmentsOL));
+        appointmentsTblView.setItems(appointmentsOL);
+    }
+
+    /**
+     * Return the upcoming appointments, within the next 15 minutes.
+     * @param allAppointments List of all appointments.
+     * @return List of upcoming appointments, within the next 15 minutes.
+     */
+    private ObservableList<Appointment> getUpcomingAppointments(ObservableList<Appointment> allAppointments){
+        ObservableList<Appointment> upcomingAppointments = FXCollections.observableArrayList();
+
+        for(Appointment appointment : allAppointments){
+            Instant startTimeMax = Instant.now().plusSeconds(TimeUnit.MINUTES.toSeconds(15));
+
+            // Add to list if within 15 minutes
+            if(appointment.getStart().toInstant().isBefore(startTimeMax)
+                    && appointment.getStart().toInstant().isAfter(Instant.now())){
+
+                upcomingAppointments.add(appointment);
+            }
+        }
+
+        return upcomingAppointments;
     }
 
     /**
@@ -86,19 +121,24 @@ public class AppointmentsController {
     }
 
     /**
+     * Action to be taken when the time zone selection is changed.
+     */
+    @FXML
+    private void onTimeZoneChcBxAction(){
+        String selectedTimeZone = timezoneChcBx.getValue().toString();
+        ObservableList<Appointment> allAppointments = Appointments.getAppointmentsOL(selectedTimeZone);
+
+        appointmentsTblView.setItems(allAppointments);
+        upcomingAppointmentsTblView.setItems(getUpcomingAppointments(allAppointments));
+
+    }
+
+    /**
      * Process when the exit button is clicked.
      */
     @FXML
     protected void onExitBtnClick(){
         Datasource.close();
         Platform.exit();
-    }
-
-    @FXML
-    private void onTimeZoneChcBxAction(){
-        String selectedTimeZone = timezoneChcBx.getValue().toString();
-
-        appointmentsTblView.setItems(Appointments.getAppointmentsOL(selectedTimeZone));
-
     }
 }

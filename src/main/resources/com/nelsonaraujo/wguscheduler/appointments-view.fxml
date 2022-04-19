@@ -81,28 +81,63 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></Label>
-                  <TableView fx:id="upcomingTblView" minWidth="-Infinity" prefHeight="75.0">
+                  <TableView fx:id="upcomingAppointmentsTblView" minWidth="-Infinity" prefHeight="75.0">
                      <columns>
-                        <TableColumn minWidth="50.0" prefWidth="175.0" text="Start">
+                        <TableColumn fx:id="upcomingAppId" maxWidth="1.7976931348623157E308" minWidth="27.0" prefWidth="-1.0" text="Id">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="id" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="upcomingAppCustomerName" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="125.0" text="Customer">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="customerName" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="upcomingAppLocation" maxWidth="1.7976931348623157E308" minWidth="70.0" prefWidth="70.0" text="Location">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="location" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="upcomingAppStart" maxWidth="1.7976931348623157E308" minWidth="45.0" text="Start">
                            <cellValueFactory>
                               <PropertyValueFactory property="start" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn minWidth="70.0" prefWidth="125.0" text="Type">
+                        <TableColumn fx:id="upcomingAppEnd" maxWidth="1.7976931348623157E308" minWidth="35.0" text="End">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="end" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="upcomingAppType" maxWidth="1.7976931348623157E308" minWidth="40.0" text="Type">
                            <cellValueFactory>
                               <PropertyValueFactory property="type" />
                            </cellValueFactory>
                         </TableColumn>
-                        <TableColumn minWidth="121.0" prefWidth="130.0" text="Customer Name">
+                        <TableColumn fx:id="upcomingAppTitle" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="50.0" text="Title">
                            <cellValueFactory>
-                              <PropertyValueFactory property="customerName" />
+                              <PropertyValueFactory property="title" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="upcomingAppDescription" maxWidth="1.7976931348623157E308" minWidth="90.0" prefWidth="90.0" text="Description">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="description" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="upcomingAppContactName" maxWidth="1.7976931348623157E308" minWidth="65.0" prefWidth="80.0" text="Contact">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="contactName" />
+                           </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="upcomingAppUserName" maxWidth="1.7976931348623157E308" minWidth="40.0" prefWidth="50.0" text="User">
+                           <cellValueFactory>
+                              <PropertyValueFactory property="userName" />
                            </cellValueFactory>
                         </TableColumn>
                      </columns>
                   </TableView>
                   <HBox>
                      <children>
-                        <Button fx:id="addBtn" onAction="#appointmentAddBtnOnAction" mnemonicParsing="false" text="Add">
+                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#appointmentAddBtnOnAction" text="Add">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin>
@@ -134,7 +169,7 @@
                               <Insets right="50.0" />
                            </HBox.margin>
                         </RadioButton>
-                        <ChoiceBox fx:id="timezoneChcBx" onAction="#onTimeZoneChcBxAction" minWidth="200.0" prefHeight="24.0" />
+                        <ChoiceBox fx:id="timezoneChcBx" minWidth="200.0" onAction="#onTimeZoneChcBxAction" prefHeight="24.0" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="10.0" top="10.0" />
