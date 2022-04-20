@@ -3,8 +3,15 @@ package com.nelsonaraujo.wguscheduler.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.List;
+import java.time.*;
+import java.time.temporal.ChronoField;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Appointments {
 
@@ -13,11 +20,37 @@ public class Appointments {
      * @param timezone Time zone the times should be in.
      * @return Observable list of appointments.
      */
-    public static ObservableList<Appointment> getAppointmentsOL(String timezone){
+    public static ObservableList<Appointment> getAppointmentsOL(String timezone, String filterView){
         ObservableList<Appointment> appointmentsOL = FXCollections.observableList(Datasource.queryAppointments());
 
+        // Apply filter
+        List<Appointment> allAppointments = Datasource.queryAppointments();
+        List<Appointment> filteredAppointments = new ArrayList<>();
+        Month currentMonth = LocalDateTime.now().getMonth();
+        LocalDateTime currentEndOfWeek = LocalDateTime.now().with(DayOfWeek.SUNDAY);
+        for(Appointment appointment : allAppointments){
+            if(filterView == "Month Only"){
+                Month startMonth = appointment.getStart().toLocalDateTime().getMonth();
+                if(startMonth == currentMonth){
+                    filteredAppointments.add(appointment);
+                }
+                continue;
+            }
+
+            if(filterView == "Week Only"){
+                LocalDateTime startLdt = appointment.getStart().toLocalDateTime();
+                if(startLdt.isAfter(LocalDateTime.now()) && startLdt.isBefore(currentEndOfWeek)){
+                    filteredAppointments.add(appointment);
+                }
+                continue;
+            }
+
+            // Select all by default
+            filteredAppointments = allAppointments;
+        }
+
         // Update times to correct timezone
-        for(Appointment appointment : appointmentsOL){
+        for(Appointment appointment : filteredAppointments){
             // Calculate time zone times
             Timestamp updatedStart = TimeZones.convertUtcTime(appointment.getStart(),TimeZones.getZoneIdFromFormattedTimeZone(timezone));
             Timestamp updatedEnd = TimeZones.convertUtcTime(appointment.getEnd(),TimeZones.getZoneIdFromFormattedTimeZone(timezone));
@@ -31,7 +64,7 @@ public class Appointments {
             appointment.setLastUpdate(updatedLastUpdate);
         }
 
-        return appointmentsOL;
+        return FXCollections.observableList(filteredAppointments);
     }
 
     /**

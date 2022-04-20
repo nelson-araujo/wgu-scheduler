@@ -11,17 +11,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.sql.Time;
-import java.sql.Timestamp;
+import java.lang.reflect.Array;
 import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +30,7 @@ public class AppointmentsController {
     @FXML ImageView customersIcon;
     @FXML ImageView reportsIcon;
     @FXML ChoiceBox timezoneChcBx;
+    @FXML ComboBox viewFilterCombBx;
 
     /**
      * Initialize the scene.
@@ -42,13 +41,18 @@ public class AppointmentsController {
         Tooltip.install(customersIcon, new Tooltip("Customers"));
         Tooltip.install(reportsIcon, new Tooltip("Reports"));
 
+        // Populate filter drop down
+        viewFilterCombBx.setItems(getFilterOptions()); // Populate options
+        viewFilterCombBx.setValue("All"); // Set selection
+
         // Populate timezone drop down and auto select the local timezone
         timezoneChcBx.setItems(FXCollections.observableArrayList(TimeZones.getFormattedTimeZones()));
         timezoneChcBx.setValue(TimeZones.getSystemTimeZoneFormatted());
 
         // Get appointments
         String selectedTimeZone = timezoneChcBx.getValue().toString();
-        ObservableList<Appointment> appointmentsOL= Appointments.getAppointmentsOL(selectedTimeZone);
+        String filterView = viewFilterCombBx.getValue().toString();
+        ObservableList<Appointment> appointmentsOL= Appointments.getAppointmentsOL(selectedTimeZone, filterView);
 
         // Populate tables
         upcomingAppointmentsTblView.setItems(getUpcomingAppointments(appointmentsOL));
@@ -121,16 +125,44 @@ public class AppointmentsController {
     }
 
     /**
+     * Get the list of view filters.
+     * @return list of view filter names.
+     */
+    private ObservableList<String> getFilterOptions(){
+        ArrayList<String> viewFilter = new ArrayList<>();
+            viewFilter.add("All");
+            viewFilter.add("Month Only");
+            viewFilter.add("Week Only");
+        ObservableList<String> viewFilterOL = FXCollections.observableList(viewFilter);
+
+        return viewFilterOL;
+    }
+
+    /**
      * Action to be taken when the time zone selection is changed.
      */
     @FXML
     private void onTimeZoneChcBxAction(){
         String selectedTimeZone = timezoneChcBx.getValue().toString();
-        ObservableList<Appointment> allAppointments = Appointments.getAppointmentsOL(selectedTimeZone);
+        String filterView = viewFilterCombBx.getValue().toString();
+
+        ObservableList<Appointment> allAppointments = Appointments.getAppointmentsOL(selectedTimeZone, filterView);
 
         appointmentsTblView.setItems(allAppointments);
         upcomingAppointmentsTblView.setItems(getUpcomingAppointments(allAppointments));
 
+    }
+
+    /**
+     * Action to be taken when the filter view selection is changed.
+     */
+    @FXML
+    private void onViewFilterCombBxAction(){
+        String selectedTimeZone = timezoneChcBx.getValue().toString();
+        String filterView = viewFilterCombBx.getValue().toString();
+        ObservableList<Appointment> allAppointments = Appointments.getAppointmentsOL(selectedTimeZone, filterView);
+
+        appointmentsTblView.setItems(allAppointments);
     }
 
     /**
