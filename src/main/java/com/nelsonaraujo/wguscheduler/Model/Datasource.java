@@ -684,6 +684,39 @@ public class Datasource {
     }
 
     /**
+     * Update an appointment on the database.
+     * @param title Title
+     * @param description Description
+     * @param location Location
+     * @param type Type
+     * @param start Start time
+     * @param end End time
+     * @param customerId Customer id
+     * @param contactId Contact id
+     * @return Successful true/false.
+     */
+    public static boolean updateAppointment(Integer appointmentId, String title, String description, String location, String type,
+                                         Timestamp start, Timestamp end, Integer customerId, Integer contactId){
+        String query = "UPDATE"
+                + " " + TABLE_APPOINTMENTS
+                + " SET"
+                + " " + COLUMN_APPOINTMENT_TITLE + "=\""+ title + "\""
+                + "," + COLUMN_APPOINTMENT_DESCRIPTION + "=\"" + description + "\""
+                + "," + COLUMN_APPOINTMENT_LOCATION + "=\"" + location + "\""
+                + "," + COLUMN_APPOINTMENT_TYPE + "=\"" + type + "\""
+                + "," + COLUMN_APPOINTMENT_START + "='" + start + "'"
+                + "," + COLUMN_APPOINTMENT_END + "='" + end + "'"
+                + "," + COLUMN_APPOINTMENT_LAST_UPDATE + "=" + "UTC_TIMESTAMP()"
+                + "," + COLUMN_APPOINTMENT_LAST_UPDATE_BY + "=\"" + Logger.getCurrUser() + "\""
+                + "," + COLUMN_APPOINTMENT_CUSTOMER_ID + "=" + customerId
+                + "," + COLUMN_APPOINTMENT_CONTACT_ID  + "=" + contactId
+                + " WHERE " + COLUMN_APPOINTMENT_ID + "=" + appointmentId
+                ;
+        Logger.logAction(Logger.ActionType.INFO,"Update " + Customers.getCustomer(customerId).getName() + " (" + appointmentId +") appointment" );
+        return runQueryNoResults(query);
+    }
+
+    /**
      * Delete appointment.
      * @param id Appointment id.
      * @return Was query successful.

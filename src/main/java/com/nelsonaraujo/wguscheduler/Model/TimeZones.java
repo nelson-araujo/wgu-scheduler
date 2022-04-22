@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TimeZones {
-    public final static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public final static String TIME_FORMAT = "HH:mm:ss";
+    public final static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm";
+    public final static String TIME_FORMAT = "HH:mm";
 
     /**
      * Get all time zones
@@ -44,7 +44,7 @@ public class TimeZones {
 
         ZoneId zoneIdToConvertTo = ZoneId.of("GMT"); // Convert zone id string to ZoneId
 
-        ZonedDateTime convertedDateTimeZdt = originalTimeTs.toInstant().atZone(zoneIdToConvertTo);
+        ZonedDateTime convertedDateTimeZdt = originalTimeZdt.toInstant().atZone(zoneIdToConvertTo);
 
         Timestamp utcTimeTs = Timestamp.valueOf(convertedDateTimeZdt.toLocalDateTime());
 

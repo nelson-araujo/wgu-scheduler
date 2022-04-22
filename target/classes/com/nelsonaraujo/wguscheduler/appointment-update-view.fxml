@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label text="Update Appointment">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox>
+         <children>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox layoutX="10.0" layoutY="148.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="ID: " />
+                        <TextField fx:id="idTxtFld" disable="true" editable="false" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox spacing="1.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Customer: " />
+                        <ComboBox fx:id="customerCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Type: " />
+                        <TextField fx:id="typeTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="44.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Title: " />
+                        <TextField fx:id="titleTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="78.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Description: " />
+                        <TextArea fx:id="descriptionTxtArea" prefHeight="72.0" prefWidth="173.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Location: " />
+                        <ComboBox fx:id="locationCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Contact: " />
+                        <ComboBox fx:id="contactCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Date: " />
+                        <DatePicker fx:id="dateDatePck" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="46.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Time Zone: " />
+                        <ComboBox fx:id="timezoneCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="82.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Start Time (hh:mm): " />
+                        <TextField fx:id="startTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="20.0" layoutY="154.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="End Time (hh:mm): " />
+                        <TextField fx:id="endTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </HBox>
+      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+        <buttons>
+          <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateBtnAction" text="Update" />
+            <Button fx:id="cancelBtn" layoutX="210.0" layoutY="18.0" mnemonicParsing="false" onAction="#cancelBtnAction" text="Cancel" />
+        </buttons>
+      </ButtonBar>
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>

@@ -6,11 +6,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.sql.Timestamp;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
-public class AppointmentAddController {
+public class AppointmentUpdateController {
+    static Appointment selectedAppointment;
+    static String selectedTimeZone;
+    @FXML TextField idTxtFld;
     @FXML Button cancelBtn;
-    @FXML Button addBtn;
+    @FXML Button updateBtn;
     @FXML ComboBox customerCmbBx;
     @FXML TextField typeTxtFld;
     @FXML TextField titleTxtFld;
@@ -23,7 +27,16 @@ public class AppointmentAddController {
     @FXML TextField endTimeTxtFld;
 
     /**
-     * Initialize the scene.
+     * Customer update controller
+     * @param selectedAppointment
+     */
+    public AppointmentUpdateController(Appointment selectedAppointment, String selectedTimeZone){
+        this.selectedAppointment = selectedAppointment;
+        this.selectedTimeZone = selectedTimeZone;
+    }
+
+    /**
+     * Class initializer, set values of the selected customer.
      */
     public void initialize(){
         // Populate customers drop down
@@ -35,53 +48,21 @@ public class AppointmentAddController {
         // Populate contacts drop down
         contactCmbBx.setItems(FXCollections.observableArrayList(Contacts.getContactNames()));
 
-        // Populate timezone drop down and auto select the local timezone
+        // Populate timezone drop down and auto select timezone
         timezoneCmbBx.setItems(FXCollections.observableArrayList(TimeZones.getFormattedTimeZones()));
-        timezoneCmbBx.setValue(TimeZones.getSystemTimeZoneFormatted());
-    }
+        timezoneCmbBx.setValue(selectedTimeZone);
 
-    /**
-     * Actions to be taken when the add button is clicked.
-     */
-    @FXML
-    private void addBtnAction(){
-        if(isFieldsValid()){
-            addAppointment();
-
-            // Close stage
-            Stage stage= (Stage) addBtn.getScene().getWindow();
-            stage.close();
-        }
-    }
-
-    /**
-     * Add appointment to database.
-     */
-    @FXML
-    private void addAppointment(){
-        Integer customer = Customers.getCustomerId(customerCmbBx.getValue().toString());
-        String type = typeTxtFld.getText();
-        String title = titleTxtFld.getText();
-        String description = descriptionTxtArea.getText();
-        String location = locationCmbBx.getValue().toString();
-        Integer contact = Contacts.getContactId(contactCmbBx.getValue().toString());
-        String date = dateDatePck.getValue().toString();
-        String timezone = timezoneCmbBx.getValue().toString();
-        String start = startTimeTxtFld.getText();
-        String end = endTimeTxtFld.getText();
-
-        // Format start and end times
-        String startDateTime = date +" " + start + ":00";
-        String endDateTime = date +" " + end + ":00";
-        // Convert start and end  times to Timestamps
-        Timestamp startTs = Timestamp.valueOf(startDateTime);
-        Timestamp endTs = Timestamp.valueOf(endDateTime);
-        // Convert start and end times to local timestamps
-        Timestamp startUtcTs = TimeZones.getUtcTime(startTs,timezone);
-        Timestamp endUtcTs = TimeZones.getUtcTime(endTs,timezone);
-
-        // Add appointment to database
-        Datasource.addAppointment(title,description,location, type, startUtcTs,endUtcTs, customer,contact);
+        // Set values
+        idTxtFld.setText(Integer.toString(selectedAppointment.getId()));
+        customerCmbBx.setValue(selectedAppointment.getCustomerName());
+        typeTxtFld.setText(selectedAppointment.getType());
+        titleTxtFld.setText(selectedAppointment.getTitle());
+        descriptionTxtArea.setText(selectedAppointment.getDescription());
+        locationCmbBx.setValue(selectedAppointment.getLocation());
+        contactCmbBx.setValue(selectedAppointment.getContactName());
+        dateDatePck.setValue(selectedAppointment.getStart().toLocalDateTime().toLocalDate());
+        startTimeTxtFld.setText(selectedAppointment.getStart().toLocalDateTime().format(DateTimeFormatter.ofPattern(TimeZones.TIME_FORMAT)));
+        endTimeTxtFld.setText(selectedAppointment.getEnd().toLocalDateTime().format(DateTimeFormatter.ofPattern(TimeZones.TIME_FORMAT)));
     }
 
     /**
@@ -89,8 +70,8 @@ public class AppointmentAddController {
      * @return true/false if fields are valid.
      */
     private Boolean isFieldsValid(){
-        String timeFormatRegex = "^([0-9]{1,2}:[0-9]{1,2})$"; // Time format regex
         boolean isValid = true;
+        String timeFormatRegex = "^([0-9]{1,2}:[0-9]{1,2})$"; // Time format regex
 
         // Customer selection validation
         if(customerCmbBx.getValue() == null){
@@ -153,6 +134,52 @@ public class AppointmentAddController {
         } else { resetField(endTimeTxtFld); }
 
         return isValid;
+    }
+
+    /**
+     * Actions to be taken when the update button is clicked.
+     */
+    @FXML
+    private void updateBtnAction(){
+        if(isFieldsValid()){
+            updateAppointment();
+
+            // Close stage
+            Stage stage= (Stage) updateBtn.getScene().getWindow();
+            stage.close();
+
+        }
+    }
+
+    /**
+     * Update appointment.
+     */
+    @FXML
+    private void updateAppointment(){
+        Integer customerId = Customers.getCustomerId(customerCmbBx.getValue().toString());
+        String type = typeTxtFld.getText();
+        String title = titleTxtFld.getText();
+        String description = descriptionTxtArea.getText();
+        String location = locationCmbBx.getValue().toString();
+        Integer contactId = Contacts.getContactId(contactCmbBx.getValue().toString());
+        String date = dateDatePck.getValue().toString();
+        String timezone = timezoneCmbBx.getValue().toString();
+        String start = startTimeTxtFld.getText();
+        String end = endTimeTxtFld.getText();
+
+        // Format start and end times
+        String startDateTime = date +" " + start + ":00";
+        String endDateTime = date +" " + end + ":00";
+        // Convert start and end  times to Timestamps
+        Timestamp startTs = Timestamp.valueOf(startDateTime);
+        Timestamp endTs = Timestamp.valueOf(endDateTime);
+        // Convert start and end times to local timestamps
+        Timestamp startUtcTs = TimeZones.getUtcTime(startTs,timezone);
+        Timestamp endUtcTs = TimeZones.getUtcTime(endTs,timezone);
+
+        // Add appointment to database
+        Datasource.updateAppointment(selectedAppointment.getId(),title, description,
+                                     location,type,startUtcTs,endUtcTs,customerId,contactId);
     }
 
     /**

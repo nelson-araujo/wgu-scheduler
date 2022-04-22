@@ -125,6 +125,48 @@ public class AppointmentsController {
     }
 
     /**
+     * Action to be taken when the update button is clicked.
+     * @param event Events from scene
+     * @throws IOException Operation fails
+     */
+    @FXML
+    public void appointmentUpdateBtnOnAction(ActionEvent event) throws IOException{
+        if(appointmentsTblView.getSelectionModel().getSelectedItem() == null) {
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("No appointment selected");
+            alertMsg.setHeaderText("Select an appointment to update");
+            alertMsg.showAndWait();
+        } else {
+            Stage updateAppointmentStage = new Stage();
+
+            updateAppointmentStage.initModality(Modality.APPLICATION_MODAL); // Stage must be closed to interact with main program
+            FXMLLoader updateAppointmentViewLoader = new FXMLLoader(getClass().getResource("/com/nelsonaraujo/wguscheduler/appointment-update-view.fxml"));
+
+            // Pass selected customer and time zone
+            Appointment selectedAppointment = (Appointment) appointmentsTblView.getSelectionModel().getSelectedItem();
+            String selectedTimeZone = timezoneChcBx.getValue().toString();
+            AppointmentUpdateController appointmentUpdateController = new AppointmentUpdateController(selectedAppointment, selectedTimeZone);
+            updateAppointmentViewLoader.setController(appointmentUpdateController);
+
+            // Open stage
+            Parent root = updateAppointmentViewLoader.load();
+            Scene scene = new Scene(root);
+            updateAppointmentStage.setScene(scene);
+            updateAppointmentStage.setTitle("Update Appointment");
+            updateAppointmentStage.setResizable(false);
+            updateAppointmentStage.showAndWait();
+
+            // Get appointments
+            String filterView = viewFilterCombBx.getValue().toString();
+            ObservableList<Appointment> appointmentsOL= Appointments.getAppointmentsOL(selectedTimeZone, filterView);
+
+            // Repopulate tables
+            upcomingAppointmentsTblView.setItems(getUpcomingAppointments(appointmentsOL));
+            appointmentsTblView.setItems(appointmentsOL);
+        }
+    }
+
+    /**
      * Actions to be taken when the cancel button is clicked.
      * @param event
      * @throws IOException
