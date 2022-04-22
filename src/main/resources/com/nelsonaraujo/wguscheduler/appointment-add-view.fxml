@@ -22,7 +22,7 @@
                   <HBox spacing="1.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Customer: " />
-                        <ChoiceBox fx:id="customerChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" />
+                        <ComboBox fx:id="customerCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -31,7 +31,7 @@
                   <HBox layoutX="10.0" layoutY="10.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Type: " />
-                        <TextField fx:id="typeTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                        <TextField fx:id="typeTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -40,7 +40,7 @@
                   <HBox layoutX="10.0" layoutY="44.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Title: " />
-                        <TextField fx:id="titleTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                        <TextField fx:id="titleTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -64,8 +64,8 @@
                <children>
                   <HBox>
                      <children>
-                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Location: " />
-                        <ChoiceBox fx:id="locationChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Location: " />
+                        <ComboBox fx:id="locationCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -73,8 +73,8 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Contact: " />
-                        <ChoiceBox fx:id="contactChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Contact: " />
+                        <ComboBox fx:id="contactCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -82,8 +82,8 @@
                   </HBox>
                   <HBox>
                      <children>
-                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Date: " />
-                        <TextField fx:id="dateTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Date: " />
+                        <DatePicker fx:id="dateDatePck" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -91,8 +91,8 @@
                   </HBox>
                   <HBox layoutX="20.0" layoutY="46.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Time Zone: " />
-                        <ChoiceBox fx:id="timezoneChcBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Time Zone: " />
+                        <ComboBox fx:id="timezoneCmbBx" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -100,8 +100,8 @@
                   </HBox>
                   <HBox layoutX="20.0" layoutY="82.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="Start Time: " />
-                        <TextField fx:id="startTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="Start Time (hh:mm): " />
+                        <TextField fx:id="startTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -109,8 +109,8 @@
                   </HBox>
                   <HBox layoutX="20.0" layoutY="154.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="104.0" text="End Time: " />
-                        <TextField fx:id="endTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" style="-fx-border-color: #d3d3d3;" />
+                        <Label alignment="CENTER_RIGHT" minHeight="-Infinity" prefHeight="26.0" prefWidth="140.0" text="End Time (hh:mm): " />
+                        <TextField fx:id="endTimeTxtFld" minHeight="-Infinity" prefHeight="26.0" prefWidth="173.0" style="-fx-border-color: #d3d3d3;" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

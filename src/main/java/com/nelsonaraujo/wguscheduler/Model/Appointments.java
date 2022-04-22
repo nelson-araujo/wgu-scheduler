@@ -2,19 +2,11 @@ package com.nelsonaraujo.wguscheduler.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.*;
-import java.time.temporal.ChronoField;
-import java.time.temporal.Temporal;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class Appointments {
-
     /**
      * Get all appointments in the specified timezone.
      * @param timezone Time zone the times should be in.

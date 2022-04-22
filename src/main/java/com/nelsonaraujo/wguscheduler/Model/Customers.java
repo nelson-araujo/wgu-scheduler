@@ -2,7 +2,7 @@ package com.nelsonaraujo.wguscheduler.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class Customers {
@@ -26,6 +26,21 @@ public class Customers {
     }
 
     /**
+     * Get customer names.
+     * @return Customer names.
+     */
+    public static List<String> getCustomersNames(){
+        List<Customer> customers = Datasource.queryCustomers();
+        List<String> customerNames = new ArrayList<String>();
+
+        for(Customer customer : customers){
+            customerNames.add(customer.getName());
+        }
+
+        return customerNames;
+    }
+
+    /**
      * Find customer by id.
      * @param id
      * @return
@@ -39,6 +54,21 @@ public class Customers {
                 return customer;
             }
         }
+        return null;
+    }
+
+    /**
+     * Get customer ID from name.
+     * @param name Customer name.
+     * @return Customer ID.
+     */
+    public static Integer getCustomerId(String name){
+        for(Customer customer : getCustomers()){
+            if(customer.getName().equals(name)){
+                return customer.getId();
+            }
+        }
+
         return null;
     }
 }

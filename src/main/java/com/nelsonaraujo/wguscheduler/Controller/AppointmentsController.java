@@ -19,6 +19,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -118,10 +120,14 @@ public class AppointmentsController {
         addCustomerStage.setResizable(false);
         addCustomerStage.showAndWait();
 
-        // todo: update
-        // Refresh appointments view
-//        customersTblView.setItems(Customers.getCustomersOL());
-//        customersTblView.refresh();
+        // Get appointments
+        String selectedTimeZone = timezoneChcBx.getValue().toString();
+        String filterView = viewFilterCombBx.getValue().toString();
+        ObservableList<Appointment> appointmentsOL= Appointments.getAppointmentsOL(selectedTimeZone, filterView);
+
+        // Repopulate tables
+        upcomingAppointmentsTblView.setItems(getUpcomingAppointments(appointmentsOL));
+        appointmentsTblView.setItems(appointmentsOL);
     }
 
     /**

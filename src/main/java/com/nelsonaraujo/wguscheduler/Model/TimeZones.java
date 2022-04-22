@@ -25,8 +25,30 @@ public class TimeZones {
      * Get the current local time.
      * @return local time
      */
-    public static Timestamp getCurrentLocalTime(){
-        return Timestamp.valueOf(LocalDateTime.now());
+    public static Timestamp getLocalTimeFromTimeZone(Timestamp originalTimeTs, String formattedTimeZone){
+        ZonedDateTime originalTimeZdt = originalTimeTs.toLocalDateTime().atZone(ZoneId.of(TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
+        ZonedDateTime localTimeZdt = originalTimeZdt.toInstant().atZone(ZoneId.systemDefault());
+        Timestamp localTimeTs = Timestamp.from(localTimeZdt.toInstant());
+
+        return localTimeTs;
+    }
+
+    /**
+     * Get UTC time from a specified time zone.
+     * @param originalTimeTs Specific time.
+     * @param formattedTimeZone Time zone the time is in.
+     * @return UTC time.
+     */
+    public static Timestamp getUtcTime(Timestamp originalTimeTs, String formattedTimeZone){
+        ZonedDateTime originalTimeZdt = originalTimeTs.toLocalDateTime().atZone(ZoneId.of(TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
+
+        ZoneId zoneIdToConvertTo = ZoneId.of("GMT"); // Convert zone id string to ZoneId
+
+        ZonedDateTime convertedDateTimeZdt = originalTimeTs.toInstant().atZone(zoneIdToConvertTo);
+
+        Timestamp utcTimeTs = Timestamp.valueOf(convertedDateTimeZdt.toLocalDateTime());
+
+        return utcTimeTs;
     }
 
     /**

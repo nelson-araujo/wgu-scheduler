@@ -60,16 +60,92 @@ public class Datasource {
     // user table variables
     private static final String TABLE_USERS = "users";
     private static final String COLUMN_USER_ID = "User_ID";
-    private static final String COLUMN_USER_NAME = "User_Name";
+    private static final String COLUMN_USER_USERNAME = "User_Name";
     private static final String COLUMN_USER_PASSWORD = "Password";
+    private static final String COLUMN_USER_CREATE_DATE = "Create_Date";
+    private static final String COLUMN_USER_CREATE_BY = "Created_By";
+    private static final String COLUMN_USER_LAST_UPDATE = "Last_Update";
+    private static final String COLUMN_USER_LAST_UPDATE_BY = "Last_Updated_By";
 
     // contacts table variables
     private static final String TABLE_CONTACTS = "contacts";
     private static final String COLUMN_CONTACT_ID = "Contact_ID";
     private static final String COLUMN_CONTACT_NAME = "Contact_Name";
+    private static final String COLUMN_CONTACT_EMAIL = "Email";
 
     // Database connection
     private static Connection conn;
+
+    /**
+     * Query database for all users.
+     * @return List of users.
+     */
+    public static List<User> queryUsers(){
+        Statement statement = null;
+        ResultSet results = null;
+
+        // Query
+        String query = "SELECT "
+                + TABLE_USERS + "." + COLUMN_USER_ID
+                + "," + TABLE_USERS + "." + COLUMN_USER_USERNAME
+                + "," + TABLE_USERS + "." + COLUMN_USER_PASSWORD
+                + "," + TABLE_USERS + "." + COLUMN_USER_PASSWORD
+                + "," + TABLE_USERS + "." + COLUMN_USER_CREATE_DATE
+                + "," + TABLE_USERS + "." + COLUMN_USER_CREATE_BY
+                + "," + TABLE_USERS + "." + COLUMN_USER_LAST_UPDATE
+                + "," + TABLE_USERS + "." + COLUMN_USER_LAST_UPDATE_BY
+                + " FROM " + TABLE_USERS
+                ;
+
+        try{
+            statement = conn.createStatement();
+            results = statement.executeQuery(query);
+
+            List<User> users = new ArrayList<>();
+
+            while(results.next()){
+                User user = new User();
+
+                user.setId(results.getInt(COLUMN_USER_ID));
+                user.setUsername(results.getString(COLUMN_USER_USERNAME));
+                user.setPassword(results.getString(COLUMN_USER_PASSWORD));
+                user.setCreateDate(results.getTimestamp(COLUMN_USER_CREATE_DATE));
+                user.setCreateBy(results.getString(COLUMN_USER_CREATE_BY));
+                user.setLastUpdate(results.getTimestamp(COLUMN_USER_LAST_UPDATE));
+                user.setLastUpdateBy(results.getString(COLUMN_USER_LAST_UPDATE_BY));
+
+
+                users.add(user);
+            }
+
+            return users;
+
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+            return null;
+        } finally {
+            // Close result set
+            try{
+                if(results != null){
+                    results.close();
+                }
+            } catch(SQLException e){
+                System.out.println("ResultSet failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "ResultSet failed to close: " + e.getMessage()); // Log message
+            }
+
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+    }
 
     /**
      * Check if the user provided credentials match the databases credentials.
@@ -85,7 +161,7 @@ public class Datasource {
         String query = "SELECT"
                 + " " + COLUMN_USER_PASSWORD
                 + " FROM " + TABLE_USERS
-                + " WHERE " + COLUMN_USER_NAME + "=" + "'" + user + "'"
+                + " WHERE " + COLUMN_USER_USERNAME + "=" + "'" + user + "'"
                 ;
 
         // Get database password
@@ -163,7 +239,7 @@ public class Datasource {
                             + "," + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CONTACT_ID
                             + "," + TABLE_CUSTOMERS + "." + COLUMN_CUSTOMER_NAME
                             + "," + TABLE_CONTACTS + "." + COLUMN_CONTACT_NAME
-                            + "," + TABLE_USERS + "." + COLUMN_USER_NAME
+                            + "," + TABLE_USERS + "." + COLUMN_USER_USERNAME
                         + " FROM " + TABLE_APPOINTMENTS
                         + " JOIN " + TABLE_CUSTOMERS
                             + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CUSTOMER_ID
@@ -203,7 +279,7 @@ public class Datasource {
                 appointment.setContactId(results.getInt(COLUMN_APPOINTMENT_CONTACT_ID));
                 appointment.setCustomerName((results.getString(COLUMN_CUSTOMER_NAME)));
                 appointment.setContactName(results.getString(COLUMN_CONTACT_NAME));
-                appointment.setUserName(results.getString(COLUMN_USER_NAME));
+                appointment.setUserName(results.getString(COLUMN_USER_USERNAME));
 
                 appointments.add(appointment);
             }
@@ -294,6 +370,67 @@ public class Datasource {
             }
 
             return customers;
+
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+            return null;
+        } finally {
+            // Close result set
+            try{
+                if(results != null){
+                    results.close();
+                }
+            } catch(SQLException e){
+                System.out.println("ResultSet failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "ResultSet failed to close: " + e.getMessage()); // Log message
+            }
+
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+    }
+
+    /**
+     * Query database for all contacts.
+     * @return List of all contacts in the database.
+     */
+    public static List<Contact> queryContacts(){
+        Statement statement = null;
+        ResultSet results = null;
+
+        // Query
+        String query = "SELECT "
+                + TABLE_CONTACTS + "." + COLUMN_CONTACT_ID
+                + "," + TABLE_CONTACTS + "." + COLUMN_CONTACT_NAME
+                + "," + TABLE_CONTACTS + "." + COLUMN_CONTACT_EMAIL
+                + " FROM " + TABLE_CONTACTS
+                ;
+
+        try{
+            statement = conn.createStatement();
+            results = statement.executeQuery(query);
+
+            List<Contact> contacts = new ArrayList<>();
+
+            while(results.next()){
+                Contact contact = new Contact();
+
+                contact.setId(results.getInt(COLUMN_CONTACT_ID));
+                contact.setName(results.getString(COLUMN_CONTACT_NAME));
+                contact.setEmail(results.getString(COLUMN_CONTACT_NAME));
+
+                contacts.add(contact);
+            }
+
+            return contacts;
 
         } catch(SQLException e){
             System.out.println("Query Failed: " + e.getMessage());
@@ -471,7 +608,7 @@ public class Datasource {
      * @return Was query successful.
      */
     public static boolean updateCustomer(Integer customerId, String name, String address, String postalCode,
-                                      String phone, String updateBy, Integer divisionId){
+                                         String phone, String updateBy, Integer divisionId){
         String query = "UPDATE"
                 + " " + TABLE_CUSTOMERS
                 + " SET"
@@ -503,6 +640,46 @@ public class Datasource {
         Customer customer = Customers.getCustomer(id); // Get customer
         Logger.logAction(Logger.ActionType.INFO,"Delete customer \""
                 + customer.getName() + " (" + customer.getId() +")\"" );
+        return runQueryNoResults(query);
+    }
+
+    /**
+     * Add an appointment to the database.
+     * @param title Title
+     * @param description Description
+     * @param location Location
+     * @param type Type
+     * @param start Start time
+     * @param end End time
+     * @param customerId Customer id
+     * @param contactId Contact id
+     * @return Successful true/false.
+     */
+    public static boolean addAppointment(String title, String description, String location, String type,
+                                         Timestamp start, Timestamp end, Integer customerId, Integer contactId){
+        String query = "INSERT INTO"
+                + " " + TABLE_APPOINTMENTS
+                + " VALUES("
+                + "NULL" // Appointment_ID
+                + ",\"" + title + "\"" // Title
+                + ",\"" + description + "\"" // Description
+                + ",\"" + location + "\"" // Location
+                + ",\"" + type + "\"" // Type
+                + ",\"" + start + "\""  // Start
+                + ",\"" + end + "\"" // End
+                + ",UTC_TIMESTAMP()" // Create_Date
+                + ",\"" + Logger.getCurrUser() + "\"" // Created_By
+                + ",UTC_TIMESTAMP()" // Last_Update
+                + ",\"" + Logger.getCurrUser() +"\"" // Last_Updated_By
+                + "," + customerId // Customer_ID
+                + "," + Users.getUserId(Logger.getCurrUser()) // User_ID
+                + "," + contactId // Contact_ID
+                + ")"
+                ;
+
+        Logger.logAction(Logger.ActionType.INFO,"Add appointment for "
+                + Customers.getCustomer(customerId).getName() + "(" + customerId + ")");
+
         return runQueryNoResults(query);
     }
 

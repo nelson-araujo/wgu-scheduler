@@ -81,7 +81,7 @@
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin></Label>
-                  <TableView fx:id="upcomingAppointmentsTblView" minWidth="-Infinity" prefHeight="75.0">
+                  <TableView fx:id="upcomingAppointmentsTblView" minWidth="-Infinity" prefHeight="100.0">
                      <columns>
                         <TableColumn fx:id="upcomingAppId" maxWidth="1.7976931348623157E308" minWidth="27.0" prefWidth="-1.0" text="Id">
                            <cellValueFactory>
@@ -163,7 +163,7 @@
                               <Insets />
                            </HBox.margin>
                         </Label>
-                        <ComboBox fx:id="viewFilterCombBx" onAction="#onViewFilterCombBxAction" minHeight="24.0">
+                        <ComboBox fx:id="viewFilterCombBx" minHeight="24.0" onAction="#onViewFilterCombBxAction">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -182,7 +182,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <TableView fx:id="appointmentsTblView" prefHeight="150.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="appointmentsTblView" prefHeight="120.0" VBox.vgrow="ALWAYS">
                     <columns>
                       <TableColumn fx:id="id" maxWidth="1.7976931348623157E308" minWidth="27.0" prefWidth="-1.0" text="Id">
                          <cellValueFactory>
