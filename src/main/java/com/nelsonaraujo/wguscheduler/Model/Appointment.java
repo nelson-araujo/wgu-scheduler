@@ -24,6 +24,38 @@ public class Appointment {
     private String contactName;
     private String userName;
 
+    /**
+     * Ask user to confirm the deletion of an appointment.
+     * @return
+     */
+    private Boolean confirmDelete(){
+        Alert alertMsg = new Alert(Alert.AlertType.CONFIRMATION);
+        alertMsg.setTitle("Delete: " + this.getTitle() + " (" + this.id +")");
+        alertMsg.setHeaderText("Are you sure you want to delete " + this.getCustomerName()
+                + " " + this.getTitle() + " (" + this.id +") appointment?");
+        alertMsg.setContentText("Click OK to confirm");
+
+        Optional<ButtonType> result = alertMsg.showAndWait();
+
+        if(result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Confirm and delete appointment.
+     * @return
+     */
+    public Boolean deleteAppointment(){
+        if(confirmDelete()){
+            return Datasource.deleteAppointment(this.getId());
+        } else {
+            return false;
+        }
+    }
+
     public int getId() {
         return id;
     }
@@ -158,37 +190,5 @@ public class Appointment {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    /**
-     * Ask user to confirm the deletion of an appointment.
-     * @return
-     */
-    private Boolean confirmDelete(){
-        Alert alertMsg = new Alert(Alert.AlertType.CONFIRMATION);
-        alertMsg.setTitle("Delete: " + this.getTitle() + " (" + this.id +")");
-        alertMsg.setHeaderText("Are you sure you want to delete " + this.getCustomerName()
-                + this.getTitle() + " (" + this.id +") appointment?");
-        alertMsg.setContentText("Click OK to confirm");
-
-        Optional<ButtonType> result = alertMsg.showAndWait();
-
-        if(result.get() == ButtonType.OK){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Confirm and delete appointment.
-     * @return
-     */
-    public Boolean deleteAppointment(){
-        if(confirmDelete()){
-            return Datasource.deleteAppointment(this.getId());
-        } else {
-            return false;
-        }
     }
 }

@@ -10,17 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -128,6 +122,44 @@ public class AppointmentsController {
         // Repopulate tables
         upcomingAppointmentsTblView.setItems(getUpcomingAppointments(appointmentsOL));
         appointmentsTblView.setItems(appointmentsOL);
+    }
+
+    /**
+     * Actions to be taken when the cancel button is clicked.
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    public void appointmentCancelBtnOnAction(ActionEvent event) throws IOException{
+        if(appointmentsTblView.getSelectionModel().getSelectedItem() != null) {
+            try {
+                Appointment selectedAppointment = (Appointment) appointmentsTblView.getSelectionModel().getSelectedItem();
+                if (selectedAppointment.deleteAppointment()) {
+                    // Notify the user the customer has been deleted
+                    Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+                    alertMsg.setTitle("Appointment deleted");
+                    alertMsg.setHeaderText("Appointment for " + selectedAppointment.getCustomerName()
+                            + " on " + selectedAppointment.getStart() + " has been deleted");
+                    alertMsg.showAndWait();
+
+                    // Refresh tables - Get appointments
+                    String selectedTimeZone = timezoneChcBx.getValue().toString();
+                    String filterView = viewFilterCombBx.getValue().toString();
+                    ObservableList<Appointment> appointmentsOL= Appointments.getAppointmentsOL(selectedTimeZone, filterView);
+
+                    // // Refresh tables - Repopulate tables
+                    upcomingAppointmentsTblView.setItems(getUpcomingAppointments(appointmentsOL));
+                    appointmentsTblView.setItems(appointmentsOL);
+                }
+            } catch (Exception e) {
+                Logger.logAction(Logger.ActionType.ERROR, e.getMessage());
+            }
+        } else {
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("No appointment selected");
+            alertMsg.setHeaderText("Select an appointment to cancel");
+            alertMsg.showAndWait();
+        }
     }
 
     /**

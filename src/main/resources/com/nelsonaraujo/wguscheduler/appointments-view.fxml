@@ -147,7 +147,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <Button fx:id="cancelBtn" layoutX="152.0" layoutY="10.0" mnemonicParsing="false" text="Cancel">
+                        <Button fx:id="cancelBtn" onAction="#appointmentCancelBtnOnAction" layoutX="152.0" layoutY="10.0" mnemonicParsing="false" text="Cancel">
                            <HBox.margin>
                               <Insets right="15.0" />
                            </HBox.margin></Button>
