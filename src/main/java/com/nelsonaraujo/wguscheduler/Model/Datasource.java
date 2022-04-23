@@ -77,6 +77,202 @@ public class Datasource {
     private static Connection conn;
 
     /**
+     * Query report total appointments per office.
+     * @return Total appointments per office report.
+     */
+    public static List<ReportTotalAppointmentsPerLocation> queryReportTotalAppointmentsPerLocation(){
+        Statement statement = null;
+        ResultSet results = null;
+
+        String appointmentsCount = "COUNT(" + COLUMN_APPOINTMENT_CUSTOMER_ID +")";
+
+        // Query
+        String query = "SELECT "
+                + COLUMN_APPOINTMENT_LOCATION
+                + "," + appointmentsCount
+                + " FROM " + TABLE_APPOINTMENTS
+                + " GROUP BY " + COLUMN_APPOINTMENT_LOCATION
+                ;
+        try{
+            statement = conn.createStatement();
+            results = statement.executeQuery(query);
+
+            List<ReportTotalAppointmentsPerLocation> report = new ArrayList<>();
+
+            while(results.next()){
+                ReportTotalAppointmentsPerLocation line = new ReportTotalAppointmentsPerLocation();
+
+                line.setLocation(results.getString(COLUMN_APPOINTMENT_LOCATION));
+                line.setAppointmentsCount(results.getInt(appointmentsCount));
+
+                report.add(line);
+            }
+
+            return report;
+
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+            return null;
+        } finally {
+            // Close result set
+            try{
+                if(results != null){
+                    results.close();
+                }
+            } catch(SQLException e){
+                System.out.println("ResultSet failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "ResultSet failed to close: " + e.getMessage()); // Log message
+            }
+
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+    }
+
+    /**
+     * Query report total appointments.
+     * @param selectedContactId Contact to run the report on.
+     * @return Total appointments report.
+     */
+    public static List<ReportContactAppointments> queryReportContactAppointments(Integer selectedContactId){
+        Statement statement = null;
+        ResultSet results = null;
+
+        // Query
+        String query = "SELECT "
+                + COLUMN_APPOINTMENT_ID
+                + "," + COLUMN_APPOINTMENT_TITLE
+                + "," + COLUMN_APPOINTMENT_TYPE
+                + "," + COLUMN_APPOINTMENT_DESCRIPTION
+                + "," + COLUMN_APPOINTMENT_START
+                + "," + COLUMN_APPOINTMENT_END
+                + "," + COLUMN_APPOINTMENT_CUSTOMER_ID
+                + " FROM " + TABLE_APPOINTMENTS
+                + " WHERE " + COLUMN_APPOINTMENT_CONTACT_ID + "=" + selectedContactId;
+                ;
+        try{
+            statement = conn.createStatement();
+            results = statement.executeQuery(query);
+
+            List<ReportContactAppointments> report = new ArrayList<>();
+
+            while(results.next()){
+                ReportContactAppointments appointment = new ReportContactAppointments();
+
+                appointment.setAppointmentId(results.getInt(COLUMN_APPOINTMENT_ID));
+                appointment.setTitle(results.getString(COLUMN_APPOINTMENT_TITLE));
+                appointment.setType(results.getString(COLUMN_APPOINTMENT_TYPE));
+                appointment.setDescription(results.getString(COLUMN_APPOINTMENT_DESCRIPTION));
+                appointment.setStart(results.getTimestamp(COLUMN_APPOINTMENT_START));
+                appointment.setEnd(results.getTimestamp(COLUMN_APPOINTMENT_END));
+                appointment.setCustomerId(results.getInt(COLUMN_APPOINTMENT_CUSTOMER_ID));
+
+                report.add(appointment);
+            }
+
+            return report;
+
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+            return null;
+        } finally {
+            // Close result set
+            try{
+                if(results != null){
+                    results.close();
+                }
+            } catch(SQLException e){
+                System.out.println("ResultSet failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "ResultSet failed to close: " + e.getMessage()); // Log message
+            }
+
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+    }
+
+    /**
+     * Query report total appointments.
+     * @return Total appointments report.
+     */
+    public static List<ReportTotalAppointments> queryReportTotalAppointments(){
+        Statement statement = null;
+        ResultSet results = null;
+
+        String monthName = "MONTHNAME(" + COLUMN_APPOINTMENT_START +")";
+        String monthCount = "COUNT(MONTHNAME(" + COLUMN_APPOINTMENT_START + "))";
+
+        // Query
+        String query = "SELECT "
+                + COLUMN_APPOINTMENT_TYPE
+                + "," + monthName
+                + "," + monthCount
+                + " FROM " + TABLE_APPOINTMENTS
+                + " GROUP BY " + COLUMN_APPOINTMENT_TYPE + ", MONTHNAME(" + COLUMN_APPOINTMENT_START +")"
+                ;
+        try{
+            statement = conn.createStatement();
+            results = statement.executeQuery(query);
+
+            List<ReportTotalAppointments> report = new ArrayList<>();
+
+            while(results.next()){
+                ReportTotalAppointments line = new ReportTotalAppointments();
+
+                line.setType(results.getString(COLUMN_APPOINTMENT_TYPE));
+                line.setMonthName(results.getString(monthName));
+                line.setMonthCount(results.getString(monthCount));
+
+
+                report.add(line);
+            }
+
+            return report;
+
+        } catch(SQLException e){
+            System.out.println("Query Failed: " + e.getMessage());
+            Logger.logAction(Logger.ActionType.ERROR, "Query failed: " + e.getMessage()); // Log message
+            return null;
+        } finally {
+            // Close result set
+            try{
+                if(results != null){
+                    results.close();
+                }
+            } catch(SQLException e){
+                System.out.println("ResultSet failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "ResultSet failed to close: " + e.getMessage()); // Log message
+            }
+
+            // Close statement
+            try{
+                if(statement != null) {
+                    statement.close();
+                }
+            } catch(SQLException e){
+                System.out.println("Statement failed to close" + e.getMessage());
+                Logger.logAction(Logger.ActionType.ERROR, "Statement failed to close: " + e.getMessage()); // Log message
+            }
+        }
+    }
+
+    /**
      * Query database for all users.
      * @return List of users.
      */

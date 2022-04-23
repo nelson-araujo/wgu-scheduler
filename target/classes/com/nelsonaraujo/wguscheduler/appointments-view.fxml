@@ -82,6 +82,9 @@
                         <Insets top="10.0" />
                      </VBox.margin></Label>
                   <TableView fx:id="upcomingAppointmentsTblView" minWidth="-Infinity" prefHeight="100.0">
+                     <placeholder>
+                        <Label text="No upcoming appointments" />
+                     </placeholder>
                      <columns>
                         <TableColumn fx:id="upcomingAppId" maxWidth="1.7976931348623157E308" minWidth="27.0" prefWidth="-1.0" text="Id">
                            <cellValueFactory>
@@ -183,6 +186,9 @@
                      </VBox.margin>
                   </HBox>
                   <TableView fx:id="appointmentsTblView" prefHeight="120.0" VBox.vgrow="ALWAYS">
+                     <placeholder>
+                        <Label text="No appointments scheduled" />
+                     </placeholder>
                     <columns>
                       <TableColumn fx:id="id" maxWidth="1.7976931348623157E308" minWidth="27.0" prefWidth="-1.0" text="Id">
                          <cellValueFactory>

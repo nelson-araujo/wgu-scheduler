@@ -32,7 +32,7 @@ public class Appointment {
         Alert alertMsg = new Alert(Alert.AlertType.CONFIRMATION);
         alertMsg.setTitle("Delete: " + this.getTitle() + " (" + this.id +")");
         alertMsg.setHeaderText("Are you sure you want to delete " + this.getCustomerName()
-                + " " + this.getTitle() + " (" + this.id +") appointment?");
+                + " " + this.getType() + " (" + this.id +") appointment?");
         alertMsg.setContentText("Click OK to confirm");
 
         Optional<ButtonType> result = alertMsg.showAndWait();
