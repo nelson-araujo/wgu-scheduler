@@ -100,14 +100,6 @@ public class AppointmentAddController {
                 dateDatePck.getValue().toString() +" " + endTimeTxtFld.getText().toString() + ":00");
         String formattedTimeZone = timezoneCmbBx.getValue().toString();
 
-
-        // todo: remove
-        System.out.println("---");
-//        System.out.println("Outside start: " + Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone));
-//        System.out.println("Outside End: " + Appointments.isOutsideBusinessHours(aptEnd,formattedTimeZone));
-        System.out.println("Overlap: " + Appointments.isOverlapAppointment(custName,aptStart, aptEnd,formattedTimeZone));
-
-
         // Customer selection validation
         if(customerCmbBx.getValue() == null){
             invalidField(customerCmbBx);
@@ -158,7 +150,8 @@ public class AppointmentAddController {
 
         // Start time selection validation
         if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText())
-                || Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone)){
+                || Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone)
+                || Appointments.isOverlapAppointment(custName,aptStart, aptEnd,formattedTimeZone,0)){
             invalidField(startTimeTxtFld);
             isValid = false;
         } else { resetField(startTimeTxtFld); }
@@ -171,11 +164,6 @@ public class AppointmentAddController {
         } else { resetField(endTimeTxtFld); }
 
         return isValid;
-    }
-
-    private static boolean isOutsideBusinessHouses(Timestamp time, String timezone){
-
-        return FALSE; // todo: update
     }
 
     /**

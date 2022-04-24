@@ -13,7 +13,39 @@ import static java.lang.Boolean.TRUE;
 
 public class Appointments {
 
-    public static boolean isOverlapAppointment(String custName, Timestamp aptStart, Timestamp AptEnd, String formattedTimeZone){
+    public static boolean isOverlapAppointment(String customerName, Timestamp aptStart, Timestamp aptEnd, String formattedTimeZone, Integer aptId){
+        ZoneId utcZoneId = ZoneId.of("GMT"); // Get US/Eastern Time Zone ZoneId
+
+        // convert start time to UTC ZonedDateTime
+        ZonedDateTime aptStartZdt = aptStart.toLocalDateTime().atZone(ZoneId.of(
+                TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
+        ZonedDateTime aptStartUtcZdt = aptStartZdt.toInstant().atZone(utcZoneId);
+        Timestamp aptStartUtcTs = Timestamp.from(aptStartUtcZdt.toInstant());
+
+        // convert ent time to UTC ZonedDateTime
+        ZonedDateTime aptEndZdt = aptEnd.toLocalDateTime().atZone(ZoneId.of(
+                TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
+        ZonedDateTime aptEndUtcZdt = aptEndZdt.toInstant().atZone(utcZoneId);
+        Timestamp aptEndUtcTs = Timestamp.from(aptEndUtcZdt.toInstant());
+
+        Integer customerId = Customers.getCustomerId(customerName);
+        List<Appointment> userAppointments = getUserAppointments(customerId);
+
+        for(Appointment appointment : userAppointments){
+            ZonedDateTime appointmentStartZdt = ZonedDateTime.from(appointment.getStart().toInstant().atZone(utcZoneId));
+            ZonedDateTime appointmentEndZdt = ZonedDateTime.from(appointment.getEnd().toInstant().atZone(utcZoneId));
+
+            if(appointment.getId()!=aptId) {
+                if (aptStartUtcZdt.isEqual(appointmentStartZdt)
+                        || (aptStartUtcZdt.isAfter(appointmentStartZdt) && aptStartUtcZdt.isBefore(appointmentEndZdt))) {
+                    Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+                    alertMsg.setTitle("Exiting appointment");
+                    alertMsg.setHeaderText("An appointment with the same time frame already exists.");
+                    alertMsg.showAndWait();
+                    return TRUE;
+                }
+            }
+        }
 
         return FALSE; // todo: update
     }
@@ -126,7 +158,7 @@ public class Appointments {
     }
 
     /**
-     * Return an appointment by user id
+     * Return a single appointment by user id
      * @param customerId
      * @return
      */
@@ -138,5 +170,21 @@ public class Appointments {
             }
         }
         return null; // If no appointments are found.
+    }
+
+    /**
+     * Return all appointment by user id
+     * @param customerId
+     * @return
+     */
+    public static List<Appointment> getUserAppointments(int customerId){
+        List<Appointment> appointments = getAppointments();
+        List<Appointment> userAppointments = new ArrayList<>();
+        for(Appointment appointment : appointments){
+            if(appointment.getCustomerId() == customerId){
+                userAppointments.add(appointment);
+            }
+        }
+        return userAppointments;
     }
 }

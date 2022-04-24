@@ -80,6 +80,7 @@ public class AppointmentUpdateController {
         boolean isValid = true;
         String timeFormatRegex = "^([0-9]{1,2}:[0-9]{1,2})$"; // Time format regex
         String custName = customerCmbBx.getValue().toString();
+        Integer aptId = Integer.valueOf(idTxtFld.getText());
         Timestamp aptStart = Timestamp.valueOf(
                 dateDatePck.getValue().toString() +" " + startTimeTxtFld.getText().toString() + ":00");
         Timestamp aptEnd = Timestamp.valueOf(
@@ -136,7 +137,8 @@ public class AppointmentUpdateController {
 
         // Start time selection validation
         if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText())
-                || Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone)){
+                || Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone)
+                || Appointments.isOverlapAppointment(custName,aptStart, aptEnd,formattedTimeZone,aptId)){
             invalidField(startTimeTxtFld);
             isValid = false;
         } else { resetField(startTimeTxtFld); }
@@ -149,39 +151,6 @@ public class AppointmentUpdateController {
         } else { resetField(endTimeTxtFld); }
 
         return isValid;
-    }
-
-    private static boolean isOutsideBusinessHours(String date, String time, String formattedTimeZone){
-        String timeStrg = date +" " + time + ":00"; // Build the date time
-        Timestamp dateTimeTs = Timestamp.valueOf(timeStrg); // Convert date and time to a timestamp
-
-        // Create a ZonedDataTime with the provided time zone and convert it to UTC time.
-        ZonedDateTime dateTimeZdt = dateTimeTs.toLocalDateTime().atZone(ZoneId.of(
-                TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
-        ZoneId zoneIdToConvertTo = ZoneId.of("US/Eastern"); // Convert zone id string to ZoneId
-        ZonedDateTime utcDateTimeZdt = dateTimeZdt.toInstant().atZone(zoneIdToConvertTo);
-
-        // Check is the date time falls in a weekend.
-        DayOfWeek dateTimeDayOfWeek = utcDateTimeZdt.toLocalDateTime().toLocalDate().getDayOfWeek();
-        if(dateTimeDayOfWeek == DayOfWeek.SATURDAY || dateTimeDayOfWeek == DayOfWeek.SUNDAY){
-            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
-            alertMsg.setTitle("Outside business hours");
-            alertMsg.setHeaderText("The Date you selected falls on the weekend.");
-            alertMsg.showAndWait();
-
-            return TRUE;
-        }
-
-        // Check if between 8:00 and 22:00 EST
-        if(utcDateTimeZdt.getHour() < 8 || utcDateTimeZdt.getHour() >= 22){
-            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
-            alertMsg.setTitle("Outside business hours");
-            alertMsg.setHeaderText("The time you entered falls outside our 08:00 to 22:00 business hours.");
-            alertMsg.showAndWait();
-            return TRUE;
-        }
-
-        return FALSE;
     }
 
     /**
