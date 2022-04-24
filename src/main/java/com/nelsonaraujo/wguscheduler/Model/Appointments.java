@@ -2,11 +2,69 @@ package com.nelsonaraujo.wguscheduler.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.*;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 public class Appointments {
+
+    public static boolean isOverlapAppointment(String custName, Timestamp aptStart, Timestamp AptEnd, String formattedTimeZone){
+
+        return FALSE; // todo: update
+    }
+
+    /**
+     * Check if the date selected does not fall on the weekend.
+     * @param aptTime appointment time with date.
+     * @param formattedTimeZone Selected timezone
+     * @return If it falls during the week.
+     */
+    public static boolean isNotWeekend(Timestamp aptTime, String formattedTimeZone){
+        // Create a ZonedDataTime with the provided time zone.
+        ZonedDateTime dateTimeZdt = aptTime.toLocalDateTime().atZone(ZoneId.of(
+                TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
+        ZoneId zoneIdToConvertTo = ZoneId.of("US/Eastern"); // Get US/Eastern Time Zone ZoneId
+        ZonedDateTime utcDateTimeZdt = dateTimeZdt.toInstant().atZone(zoneIdToConvertTo);
+
+        // Check is the date time falls in a weekend.
+        DayOfWeek dateTimeDayOfWeek = utcDateTimeZdt.toLocalDateTime().toLocalDate().getDayOfWeek();
+        if(dateTimeDayOfWeek == DayOfWeek.SATURDAY || dateTimeDayOfWeek == DayOfWeek.SUNDAY){
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("Outside business hours");
+            alertMsg.setHeaderText("The Date you selected falls on the weekend.");
+            alertMsg.showAndWait();
+
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    public static boolean isOutsideBusinessHours(Timestamp aptTime, String formattedTimeZone){
+        ZonedDateTime dateTimeZdt = aptTime.toLocalDateTime().atZone(ZoneId.of(
+                TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
+        ZoneId usEasternZoneId = ZoneId.of("US/Eastern"); // Get US/Eastern Time Zone ZoneId
+        ZonedDateTime aptTimeEstZdt = dateTimeZdt.toInstant().atZone(usEasternZoneId);
+
+        ZonedDateTime aptTimeEstMinZdt = aptTimeEstZdt.with(aptTimeEstZdt.toLocalTime().of(8,0));
+        ZonedDateTime aptTimeEstMaxZdt = aptTimeEstZdt.with(aptTimeEstZdt.toLocalTime().of(22,0));
+
+        // Check if between 8:00 and 22:00 EST
+        if(aptTimeEstZdt.isBefore(aptTimeEstMinZdt) || aptTimeEstZdt.isAfter(aptTimeEstMaxZdt)){
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("Outside business hours");
+            alertMsg.setHeaderText("The time you entered is outside our Monday-Friday 08:00-22:00 business hours.");
+            alertMsg.showAndWait();
+            return TRUE;
+        }
+
+        return FALSE;
+    }
+
     /**
      * Get all appointments in the specified timezone.
      * @param timezone Time zone the times should be in.

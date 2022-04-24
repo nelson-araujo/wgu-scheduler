@@ -91,12 +91,22 @@ public class AppointmentAddController {
      * @return true/false if fields are valid.
      */
     private Boolean isFieldsValid(){
-        String timeFormatRegex = "^([0-9]{1,2}:[0-9]{1,2})$"; // Time format regex
         boolean isValid = true;
+        String timeFormatRegex = "^([0-9]{1,2}:[0-9]{1,2})$"; // Time format regex
+        String custName = customerCmbBx.getValue().toString();
+        Timestamp aptStart = Timestamp.valueOf(
+                dateDatePck.getValue().toString() +" " + startTimeTxtFld.getText().toString() + ":00");
+        Timestamp aptEnd = Timestamp.valueOf(
+                dateDatePck.getValue().toString() +" " + endTimeTxtFld.getText().toString() + ":00");
+        String formattedTimeZone = timezoneCmbBx.getValue().toString();
 
-        System.out.println("Outside business hours:"); // todo: remove
-        System.out.println("Start: " + isOutsideBusinessHouses(Timestamp.valueOf(startTimeTxtFld.getText()),timezoneCmbBx.getValue().toString())); // todo: remove
-        System.out.println("End: " + isOutsideBusinessHouses(Timestamp.valueOf(endTimeTxtFld.getText()),timezoneCmbBx.getValue().toString())); // todo: remove
+
+        // todo: remove
+        System.out.println("---");
+//        System.out.println("Outside start: " + Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone));
+//        System.out.println("Outside End: " + Appointments.isOutsideBusinessHours(aptEnd,formattedTimeZone));
+        System.out.println("Overlap: " + Appointments.isOverlapAppointment(custName,aptStart, aptEnd,formattedTimeZone));
+
 
         // Customer selection validation
         if(customerCmbBx.getValue() == null){
@@ -135,7 +145,7 @@ public class AppointmentAddController {
         } else { resetField(contactCmbBx); }
 
         // Date selection validation
-        if(dateDatePck.getValue() == null){
+        if(dateDatePck.getValue() == null || Appointments.isNotWeekend(aptStart, formattedTimeZone)){
             invalidField(dateDatePck);
             isValid = false;
         } else { resetField(dateDatePck); }
@@ -147,13 +157,15 @@ public class AppointmentAddController {
         } else { resetField(timezoneCmbBx); }
 
         // Start time selection validation
-        if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText())){
+        if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText())
+                || Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone)){
             invalidField(startTimeTxtFld);
             isValid = false;
         } else { resetField(startTimeTxtFld); }
 
         // Start time selection validation
-        if(endTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,endTimeTxtFld.getText())){
+        if(endTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,endTimeTxtFld.getText())
+                || Appointments.isOutsideBusinessHours(aptEnd,formattedTimeZone)){
             invalidField(endTimeTxtFld);
             isValid = false;
         } else { resetField(endTimeTxtFld); }

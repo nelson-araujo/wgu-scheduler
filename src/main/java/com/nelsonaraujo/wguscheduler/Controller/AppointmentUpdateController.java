@@ -79,6 +79,12 @@ public class AppointmentUpdateController {
     private Boolean isFieldsValid(){
         boolean isValid = true;
         String timeFormatRegex = "^([0-9]{1,2}:[0-9]{1,2})$"; // Time format regex
+        String custName = customerCmbBx.getValue().toString();
+        Timestamp aptStart = Timestamp.valueOf(
+                dateDatePck.getValue().toString() +" " + startTimeTxtFld.getText().toString() + ":00");
+        Timestamp aptEnd = Timestamp.valueOf(
+                dateDatePck.getValue().toString() +" " + endTimeTxtFld.getText().toString() + ":00");
+        String formattedTimeZone = timezoneCmbBx.getValue().toString();
 
         // Customer selection validation
         if(customerCmbBx.getValue() == null){
@@ -117,7 +123,7 @@ public class AppointmentUpdateController {
         } else { resetField(contactCmbBx); }
 
         // Date selection validation
-        if(dateDatePck.getValue() == null){
+        if(dateDatePck.getValue() == null || Appointments.isNotWeekend(aptStart, formattedTimeZone)){
             invalidField(dateDatePck);
             isValid = false;
         } else { resetField(dateDatePck); }
@@ -129,13 +135,15 @@ public class AppointmentUpdateController {
         } else { resetField(timezoneCmbBx); }
 
         // Start time selection validation
-        if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText()) || isOutsideBusinessHours(dateDatePck.getValue().toString(), startTimeTxtFld.getText(),timezoneCmbBx.getValue().toString())){
+        if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText())
+                || Appointments.isOutsideBusinessHours(aptStart,formattedTimeZone)){
             invalidField(startTimeTxtFld);
             isValid = false;
         } else { resetField(startTimeTxtFld); }
 
         // Start time selection validation
-        if(endTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,endTimeTxtFld.getText()) || isOutsideBusinessHours(dateDatePck.getValue().toString(), endTimeTxtFld.getText(),timezoneCmbBx.getValue().toString())){
+        if(endTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,endTimeTxtFld.getText())
+                || Appointments.isOutsideBusinessHours(aptEnd,formattedTimeZone)){
             invalidField(endTimeTxtFld);
             isValid = false;
         } else { resetField(endTimeTxtFld); }
