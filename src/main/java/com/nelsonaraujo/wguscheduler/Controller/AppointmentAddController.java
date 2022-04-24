@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import java.sql.Timestamp;
 import java.util.regex.Pattern;
 
+import static java.lang.Boolean.FALSE;
+
 public class AppointmentAddController {
     @FXML Button cancelBtn;
     @FXML Button addBtn;
@@ -92,6 +94,10 @@ public class AppointmentAddController {
         String timeFormatRegex = "^([0-9]{1,2}:[0-9]{1,2})$"; // Time format regex
         boolean isValid = true;
 
+        System.out.println("Outside business hours:"); // todo: remove
+        System.out.println("Start: " + isOutsideBusinessHouses(Timestamp.valueOf(startTimeTxtFld.getText()),timezoneCmbBx.getValue().toString())); // todo: remove
+        System.out.println("End: " + isOutsideBusinessHouses(Timestamp.valueOf(endTimeTxtFld.getText()),timezoneCmbBx.getValue().toString())); // todo: remove
+
         // Customer selection validation
         if(customerCmbBx.getValue() == null){
             invalidField(customerCmbBx);
@@ -153,6 +159,11 @@ public class AppointmentAddController {
         } else { resetField(endTimeTxtFld); }
 
         return isValid;
+    }
+
+    private static boolean isOutsideBusinessHouses(Timestamp time, String timezone){
+
+        return FALSE; // todo: update
     }
 
     /**

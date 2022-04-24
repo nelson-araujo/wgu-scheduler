@@ -5,9 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+
 import java.sql.Timestamp;
+import java.time.DayOfWeek;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 public class AppointmentUpdateController {
     static Appointment selectedAppointment;
@@ -122,18 +129,51 @@ public class AppointmentUpdateController {
         } else { resetField(timezoneCmbBx); }
 
         // Start time selection validation
-        if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText())){
+        if(startTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,startTimeTxtFld.getText()) || isOutsideBusinessHours(dateDatePck.getValue().toString(), startTimeTxtFld.getText(),timezoneCmbBx.getValue().toString())){
             invalidField(startTimeTxtFld);
             isValid = false;
         } else { resetField(startTimeTxtFld); }
 
         // Start time selection validation
-        if(endTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,endTimeTxtFld.getText())){
+        if(endTimeTxtFld.getText().isEmpty() || !Pattern.matches(timeFormatRegex,endTimeTxtFld.getText()) || isOutsideBusinessHours(dateDatePck.getValue().toString(), endTimeTxtFld.getText(),timezoneCmbBx.getValue().toString())){
             invalidField(endTimeTxtFld);
             isValid = false;
         } else { resetField(endTimeTxtFld); }
 
         return isValid;
+    }
+
+    private static boolean isOutsideBusinessHours(String date, String time, String formattedTimeZone){
+        String timeStrg = date +" " + time + ":00"; // Build the date time
+        Timestamp dateTimeTs = Timestamp.valueOf(timeStrg); // Convert date and time to a timestamp
+
+        // Create a ZonedDataTime with the provided time zone and convert it to UTC time.
+        ZonedDateTime dateTimeZdt = dateTimeTs.toLocalDateTime().atZone(ZoneId.of(
+                TimeZones.getZoneIdFromFormattedTimeZone(formattedTimeZone)));
+        ZoneId zoneIdToConvertTo = ZoneId.of("US/Eastern"); // Convert zone id string to ZoneId
+        ZonedDateTime utcDateTimeZdt = dateTimeZdt.toInstant().atZone(zoneIdToConvertTo);
+
+        // Check is the date time falls in a weekend.
+        DayOfWeek dateTimeDayOfWeek = utcDateTimeZdt.toLocalDateTime().toLocalDate().getDayOfWeek();
+        if(dateTimeDayOfWeek == DayOfWeek.SATURDAY || dateTimeDayOfWeek == DayOfWeek.SUNDAY){
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("Outside business hours");
+            alertMsg.setHeaderText("The Date you selected falls on the weekend.");
+            alertMsg.showAndWait();
+
+            return TRUE;
+        }
+
+        // Check if between 8:00 and 22:00 EST
+        if(utcDateTimeZdt.getHour() < 8 || utcDateTimeZdt.getHour() >= 22){
+            Alert alertMsg = new Alert(Alert.AlertType.INFORMATION);
+            alertMsg.setTitle("Outside business hours");
+            alertMsg.setHeaderText("The time you entered falls outside our 08:00 to 22:00 business hours.");
+            alertMsg.showAndWait();
+            return TRUE;
+        }
+
+        return FALSE;
     }
 
     /**
