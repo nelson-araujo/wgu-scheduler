@@ -26,16 +26,14 @@ public class Customers {
     }
 
     /**
-     * Get customer names.
+     * Get customer names. Lambda expression used for easy of readability and optimization of code.
      * @return Customer names.
      */
     public static List<String> getCustomersNames(){
         List<Customer> customers = Datasource.queryCustomers();
         List<String> customerNames = new ArrayList<String>();
 
-        for(Customer customer : customers){
-            customerNames.add(customer.getName());
-        }
+        customers.forEach(customer -> customerNames.add(customer.getName()));
 
         return customerNames;
     }

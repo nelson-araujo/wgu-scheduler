@@ -26,7 +26,7 @@ public class Appointment {
 
     /**
      * Ask user to confirm the deletion of an appointment.
-     * @return
+     * @return Delete successful.
      */
     private Boolean confirmDelete(){
         Alert alertMsg = new Alert(Alert.AlertType.CONFIRMATION);

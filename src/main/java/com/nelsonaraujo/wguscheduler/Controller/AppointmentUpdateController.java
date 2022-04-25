@@ -5,16 +5,9 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.sql.Timestamp;
-import java.time.DayOfWeek;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
-
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 
 public class AppointmentUpdateController {
     static Appointment selectedAppointment;

@@ -13,7 +13,7 @@ public class wguScheduler extends Application {
     static Stage stage;
 
     /**
-     * Override defaults
+     * Override defaults and start stage. Lambda expression used for easy of readability and optimization of code.
      * @param stage Scheduler main stage
      * @throws IOException Fails to open
      */
@@ -55,7 +55,7 @@ public class wguScheduler extends Application {
     }
 
     /**
-     * Load the customers scene.
+     * Load customers scene.
      * @throws IOException Fails to open
      */
     @FXML
@@ -73,7 +73,7 @@ public class wguScheduler extends Application {
     }
 
     /**
-     * Load the reports scene.
+     * Load reports scene.
      * @throws IOException Fails to open
      */
     @FXML

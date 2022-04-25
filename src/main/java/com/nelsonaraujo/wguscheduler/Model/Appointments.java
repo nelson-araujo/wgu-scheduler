@@ -3,11 +3,9 @@ package com.nelsonaraujo.wguscheduler.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-
 import java.sql.Timestamp;
 import java.time.*;
 import java.util.*;
-
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 

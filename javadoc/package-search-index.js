@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.nelsonaraujo.wguscheduler","l":"com.nelsonaraujo.wguscheduler"},{"m":"com.nelsonaraujo.wguscheduler","l":"com.nelsonaraujo.wguscheduler.Controller"},{"m":"com.nelsonaraujo.wguscheduler","l":"com.nelsonaraujo.wguscheduler.Model"}];updateSearchResults();

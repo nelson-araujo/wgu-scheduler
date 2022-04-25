@@ -7,9 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class CustomerUpdateController {

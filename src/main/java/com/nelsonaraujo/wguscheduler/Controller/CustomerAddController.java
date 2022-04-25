@@ -6,12 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
-
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class CustomerAddController {

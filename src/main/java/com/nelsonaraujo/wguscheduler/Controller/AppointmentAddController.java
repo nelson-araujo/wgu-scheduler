@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 import java.sql.Timestamp;
 import java.util.regex.Pattern;
 
-import static java.lang.Boolean.FALSE;
-
 public class AppointmentAddController {
     @FXML Button cancelBtn;
     @FXML Button addBtn;

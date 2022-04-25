@@ -1,0 +1,4 @@
+module:com.nelsonaraujo.wguscheduler
+com.nelsonaraujo.wguscheduler
+com.nelsonaraujo.wguscheduler.Controller
+com.nelsonaraujo.wguscheduler.Model

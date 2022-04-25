@@ -14,15 +14,13 @@ public class Contacts {
     }
 
     /**
-     * Get all contact names.
+     * Get all contact names. Lambda expression used for easy of readability and optimization of code.
      * @return List of contact names.
      */
     public static List<String> getContactNames(){
         List<String> contactNames = new ArrayList<>();
 
-        for(Contact contact : getContacts()){
-            contactNames.add(contact.getName());
-        }
+        getContacts().forEach(contact -> contactNames.add(contact.getName()));
 
         return contactNames;
     }

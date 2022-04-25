@@ -1,10 +1,7 @@
 package com.nelsonaraujo.wguscheduler.Model;
 
-import com.nelsonaraujo.wguscheduler.Controller.CustomersController;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import java.sql.Timestamp;
 import java.util.Optional;
 
