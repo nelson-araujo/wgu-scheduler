@@ -12,7 +12,7 @@ public class Datasource {
     // JDBC URL
     private static final String PROTOCOL = "jdbc";
     private static final String VENDOR_NAME = ":mysql:";
-    public static final String SERVER_NAME = "localhost"; // na VM 192.168.56.101
+    public static final String SERVER_NAME = "192.168.56.101";
     private static final String DB_NAME = "client_schedule";
     private static final String CONNECTION_STRING = PROTOCOL + VENDOR_NAME + "//" + SERVER_NAME + "/" + DB_NAME; // Full JDBC URL
 

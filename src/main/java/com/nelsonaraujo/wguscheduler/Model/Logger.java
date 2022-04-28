@@ -11,8 +11,8 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
 public class Logger {
-    private static String dbUser = "sqlUser"; // na VM sqluser
-    private static String dbUserPass = "Passw0rd!"; // na VM passw0rd!
+    private static String dbUser = "sqluser";
+    private static String dbUserPass = "passw0rd!";
     private static String currUser;
     private static String currServer;
     private static LocalDate date;
