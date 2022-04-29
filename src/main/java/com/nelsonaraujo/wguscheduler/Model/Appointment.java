@@ -5,6 +5,9 @@ import javafx.scene.control.ButtonType;
 import java.sql.Timestamp;
 import java.util.Optional;
 
+/**
+ * Appointment structure.
+ */
 public class Appointment {
     private int id;
     private String title;
@@ -46,7 +49,7 @@ public class Appointment {
 
     /**
      * Confirm and delete appointment.
-     * @return
+     * @return Execution successful.
      */
     public Boolean deleteAppointment(){
         if(confirmDelete()){
