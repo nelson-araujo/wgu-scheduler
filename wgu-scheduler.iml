@@ -10,9 +10,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/libraries" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="corretto_17_0_2" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="corretto-17-0-6" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="jdbc_mysql_8_0_25" level="application" />
-    <orderEntry type="library" name="javafx_17_0_2_linux" level="application" />
+    <orderEntry type="library" name="jdbc-mysql-8-0-25" level="project" />
+    <orderEntry type="library" name="javafx-sdk-17-0-6" level="project" />
   </component>
 </module>
